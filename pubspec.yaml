@@ -39,6 +39,8 @@ dependencies:
   connectivity_plus:
   geocoding: 
   intl:
+  http:
+  geolocator:
 
 dev_dependencies:
   flutter_test:

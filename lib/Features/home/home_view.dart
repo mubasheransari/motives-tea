@@ -1,10 +1,12 @@
 import 'package:attendence_app/Features/Reports/reports_view.dart';
+import 'package:attendence_app/Features/marked_attendence/marked_attendence_offline.dart';
 import 'package:attendence_app/Features/marked_attendence/marked_attendence_view.dart';
 import 'package:attendence_app/Features/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  bool connectivity;
+  HomeScreen({super.key, required this.connectivity});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -15,8 +17,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("HOME VIEW ${widget.connectivity}");
+    print("HOME VIEW ${widget.connectivity}");
+    print("HOME VIEW ${widget.connectivity}");
+    print("HOME VIEW ${widget.connectivity}");
+    print("HOME VIEW ${widget.connectivity}");
+
     final List<Widget> screens = [
-      MarkedAttendenceView(),
+      widget.connectivity == true
+          ? MarkedAttendenceView()
+          : MarkedAttendenceOffline(),
       ReportsViewScreen(),
       ProfileView(),
     ];

@@ -157,13 +157,5 @@ class _LeaveApplicationFormScreenState
     );
   }
 
-  Widget _buildRadioButton(String value) {
-    return RadioListTile<String>(
-      contentPadding: EdgeInsets.only(right: 20),
-      title: Text(value, style: TextStyle(fontSize: 17)),
-      value: value,
-      groupValue: _leaveType,
-      onChanged: (val) => setState(() => _leaveType = val),
-    );
-  }
+  
 }

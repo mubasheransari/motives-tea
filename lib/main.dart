@@ -1,5 +1,4 @@
 import 'package:attendence_app/Features/splash/splash_view.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-
-
 class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -15,32 +13,51 @@ class _SplashScreenState extends State<SplashScreen> {
   // late StreamSubscription<ConnectivityResult> _subscription;
   late StreamSubscription<List<ConnectivityResult>> _subscription;
 
-
   bool _navigated = false;
+  //bool? isConnected;
 
   @override
   void initState() {
     super.initState();
     _checkInternetAndNavigate();
 
-   _subscription = Connectivity()
-    .onConnectivityChanged
-    .listen((List<ConnectivityResult> resultList) async {
-  // Check if any result in the list is not 'none'
-  final hasConnection = resultList.any((result) =>
-      result != ConnectivityResult.none &&
-      result != ConnectivityResult.other);
+    _subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> resultList) async {
+      // Check if any result in the list is not 'none'
+      final hasConnection = resultList.any((result) =>
+          result != ConnectivityResult.none &&
+          result != ConnectivityResult.other);
 
-  final isConnected = hasConnection && await _hasInternetConnection();
+     final isConnected = hasConnection && await _hasInternetConnection();
+      print("CONNECTED $isConnected");
+      print("CONNECTED $isConnected");
+      print("CONNECTED $isConnected");
+      print("CONNECTED $isConnected");
+      print("CONNECTED $isConnected");
+      print("CONNECTED $isConnected");
+      print("CONNECTED $isConnected");
+      print("CONNECTED $isConnected");
 
-  if (isConnected && !_navigated) {
-    _navigateToHome();
-  } else if (!isConnected) {
+          _navigated = true;
+    Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                    connectivity: isConnected,
+                  )),
+        );
+      }
+    });
 
-    _showNoInternetMessage();
-  }
-});
-
+      // if (isConnected && !_navigated) {
+      //   _navigateToHome();
+      // } else if (!isConnected) {
+      //   _showNoInternetMessage();
+      //   _navigateToHome();
+      // }
+    });
   }
 
   Future<void> _checkInternetAndNavigate() async {
@@ -66,7 +83,10 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 3), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                    connectivity: true,
+                  )),
         );
       }
     });
