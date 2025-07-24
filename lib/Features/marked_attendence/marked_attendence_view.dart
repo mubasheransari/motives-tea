@@ -205,7 +205,7 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
         await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(
           devicePixelRatio: 2, size: Size.lerp(Size.zero, Size.zero, 20)),
-      'assets/loc_marker.png',
+      'assets/g_marker.png',
     );
     setState(() {
       _customMarkerIcon = bitmapDescriptor;
