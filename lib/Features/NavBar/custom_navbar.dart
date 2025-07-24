@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+class CustomNavDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 65.0),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.68,
+        child: Drawer(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFE7EFFE), Color(0xFFF8FAFF)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  // Main content - a column with all the items10@Testing
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          "Hello, Test User",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w400),
+                        ),
+                      ),
+
+                      SizedBox(height: 9),
+
+                      Divider(thickness: 1, height: 1),
+                      SizedBox(height: 9),
+                      // Menu Items
+                      Expanded(
+                        child: ListView(
+                          padding: EdgeInsets.zero,
+                          children: [
+                            _buildMenuItem(
+                                "assets/mobile_retina.png", 'Ratina Scan Image',
+                                onTap: () async {
+                             
+                            }),
+                            _buildMenuItem("assets/change_password.png",
+                                'Change Password'),
+                            Divider(),
+                            ListTile(
+                              leading: Image.asset("assets/logout.png"),
+                              // Icon(Icons.logout, color: Colors.redAccent),
+                              title: Text(
+                                'Logout',
+                                style: TextStyle(
+                                    color: Colors.redAccent,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18),
+                              ),
+                              onTap: () {
+                                //   logoutDialog(context);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(
+    String icon,
+    String title, {
+    bool selected = false,
+    VoidCallback? onTap,
+  }) {
+    return Container(
+      color: selected ? Color(0xFFDDE8FF) : Colors.transparent,
+      child: ListTile(
+          leading: Image.asset(
+            icon,
+            height: 40,
+            width: 40,
+          ), //Icon(icon, color: Colors.grey[800], size: 22),
+          title: Text(title,
+              style: TextStyle(
+                fontSize: 17,
+                color: Color(0xff323747),
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Satoshi',
+              )),
+          onTap: onTap),
+    );
+  }
+
+  Widget _buildExpandableMenu(BuildContext context,
+      {required IconData icon, required String title, List<Widget>? children}) {
+    return ExpansionTile(
+      leading: Icon(icon, color: Colors.grey[800], size: 22),
+      title: Text(title, style: TextStyle(fontSize: 16, color: Colors.black87)),
+      children: children ?? [],
+      trailing: Icon(Icons.keyboard_arrow_down),
+    );
+  }
+}
