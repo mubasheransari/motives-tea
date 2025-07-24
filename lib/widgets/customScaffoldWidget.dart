@@ -1,7 +1,100 @@
 import 'package:flutter/material.dart';
 import '../Features/NavBar/custom_navbar.dart';
+import '../Features/NavBar/drawer_menu_button.dart';
+
 
 class CustomScaffoldWidget extends StatelessWidget {
+  final Widget body;
+  final PreferredSizeWidget? appBar;
+  final Widget? drawer;
+  final bool isDrawerRequired;
+  final String appbartitle;
+  final bool isAppBarContentRequired;
+  final bool showNotificationIcon;
+
+  const CustomScaffoldWidget({
+    Key? key,
+    required this.body,
+    required this.appbartitle,
+    this.appBar,
+    this.drawer,
+    this.isDrawerRequired = false,
+    this.isAppBarContentRequired = true,
+    this.showNotificationIcon = true,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+    return Scaffold(
+      key: scaffoldKey,
+      drawer: drawer ?? CustomNavDrawer(),
+      appBar: appBar,
+      backgroundColor: const Color(0xFFF5F7FA),
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFE6DCFD),
+              Color(0xFFD8E7FF),
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              if (isAppBarContentRequired)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      isDrawerRequired
+                          ? DrawerMenuButton(scaffoldKey: scaffoldKey)
+                          : InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const CircleAvatar(
+                                radius: 22,
+                                backgroundColor: Colors.white,
+                                child: Icon(Icons.arrow_back,
+                                    color: Colors.black),
+                              ),
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 19.0),
+                        child: Center(
+                          child: Text(
+                            appbartitle.toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(), // You can replace this with notification icon if needed
+                      const SizedBox(),
+                    ],
+                  ),
+                ),
+              Expanded(child: body),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+/*class CustomScaffoldWidget extends StatelessWidget {
   final Widget body;
   final PreferredSizeWidget? appBar;
   final Widget? drawer;
@@ -118,7 +211,7 @@ class CustomScaffoldWidget extends StatelessWidget {
   }
 }
 
-
+*/
 
 
 

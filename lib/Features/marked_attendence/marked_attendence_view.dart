@@ -183,6 +183,9 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
 
 import 'dart:async';
 
+import '../NavBar/custom_navbar.dart';
+import '../NavBar/drawer_menu_button.dart';
+
 class MarkedAttendenceView extends StatefulWidget {
   const MarkedAttendenceView({super.key});
 
@@ -293,15 +296,18 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
     _mapController = controller;
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return CustomScaffoldWidget(
-      appbartitle: 'Attendence',
-      isAppBarContentRequired: true,
-      isDrawerRequired: true,
-      body: Column(
+    return Scaffold(
+         key: _scaffoldKey, // ✅ Add this line
+    drawer: CustomNavDrawer(), // ✅ Add your drawer if not already
+      // appbartitle: 'Attendence',
+      // isAppBarContentRequired: true,
+      // isDrawerRequired: true,
+      body: Stack(
         children: [
-          Container(
+          /* Container(
             padding: const EdgeInsets.all(12),
             width: double.infinity,
             color: Colors.white,
@@ -320,9 +326,9 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
                     textAlign: TextAlign.center,
                   ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 10),*/
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.70,
+            height: MediaQuery.of(context).size.height * 0.90,
             width: MediaQuery.of(context).size.width,
             child: FutureBuilder(
               future: _initLocationFuture,
@@ -346,6 +352,11 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
                 );
               },
             ),
+          ),
+          Positioned(
+            top: 38,
+            left: 16,
+            child: DrawerMenuButton(scaffoldKey: _scaffoldKey),
           ),
         ],
       ),
