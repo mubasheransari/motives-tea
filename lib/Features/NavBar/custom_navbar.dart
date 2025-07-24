@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class CustomNavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,10 +42,8 @@ class CustomNavDrawer extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           children: [
                             _buildMenuItem(
-                                "assets/mobile_retina.png", 'Ratina Scan Image',
-                                onTap: () async {
-                             
-                            }),
+                                "assets/leave_request.png", 'Leave Request',
+                                onTap: () async {}),
                             _buildMenuItem("assets/change_password.png",
                                 'Change Password'),
                             Divider(),

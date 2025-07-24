@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 
 import '../../widgets/customScaffoldWidget.dart';
 
+
 class ReportsViewScreen extends StatefulWidget {
   const ReportsViewScreen({super.key});
+
   @override
   State<ReportsViewScreen> createState() => _ReportsViewScreenState();
 }
@@ -26,29 +28,54 @@ class _ReportsViewScreenState extends State<ReportsViewScreen> {
 
     for (int i = 0; i < 30; i++) {
       final date = now.subtract(Duration(days: i));
-      final randomHour = 7 + random.nextInt(3); // between 7 to 9 AM
-      final randomMinute = random.nextInt(60);
-      final randomSecond = random.nextInt(60);
 
-      final formattedDate = DateFormat('yyyy-MM-dd').format(date);
-      final formattedTime = DateFormat('HH:mm:ss').format(
-        DateTime(date.year, date.month, date.day, randomHour, randomMinute,
-            randomSecond),
+      final checkInHour = 7 + random.nextInt(3); // 7,8,9
+      final checkInMinute = random.nextInt(60);
+      final checkInSecond = random.nextInt(60);
+
+      final checkIn = DateTime(
+        date.year,
+        date.month,
+        date.day,
+        checkInHour,
+        checkInMinute,
+        checkInSecond,
       );
 
+      // Add random 6–9 hour duration
+      final randomHours = 6 + random.nextInt(4); // 6,7,8,9
+      final randomMinutes = random.nextInt(60);
+      final randomSeconds = random.nextInt(60);
+
+      final checkOut = checkIn.add(Duration(
+        hours: randomHours,
+        minutes: randomMinutes,
+        seconds: randomSeconds,
+      ));
+
+      final totalDuration = checkOut.difference(checkIn);
+
       _checkinData.add({
-        "date": formattedDate,
-        "checkin_time": formattedTime,
+        "date": DateFormat('yyyy-MM-dd').format(date),
+        "checkin_time": DateFormat('HH:mm:ss').format(checkIn),
+        "checkout_time": DateFormat('HH:mm:ss').format(checkOut),
+        "total_time": _formatDuration(totalDuration),
       });
     }
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    return "${twoDigits(duration.inHours)}:"
+        "${twoDigits(duration.inMinutes.remainder(60))}:"
+        "${twoDigits(duration.inSeconds.remainder(60))}";
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffoldWidget(
-      appbartitle: 'Monthly Report',
-      isAppBarContentRequired: true,
       isDrawerRequired: true,
+    appbartitle: 'Report/History',
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(
@@ -56,25 +83,53 @@ class _ReportsViewScreenState extends State<ReportsViewScreen> {
           itemBuilder: (context, index) {
             final entry = _checkinData[index];
             return Card(
-              elevation: 4,
+              elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
               margin: const EdgeInsets.symmetric(vertical: 8),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.indigo,
-                  child: const Icon(Icons.access_time, color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.calendar_today, color: Colors.indigo),
+                        const SizedBox(width: 8),
+                        Text(
+                          "Date: ${entry['date']}",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(Icons.login, color: Colors.green),
+                        const SizedBox(width: 8),
+                        Text("Check-in: ${entry['checkin_time']}"),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(Icons.logout, color: Colors.red),
+                        const SizedBox(width: 8),
+                        Text("Check-out: ${entry['checkout_time']}"),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(Icons.access_time_filled, color: Colors.blueGrey),
+                        const SizedBox(width: 8),
+                        Text("Total Time: ${entry['total_time']}"),
+                      ],
+                    ),
+                  ],
                 ),
-                title: Text(
-                  "Date: ${entry['date']}",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: Text(
-                  "Check-in Time: ${entry['checkin_time']}",
-                  style: const TextStyle(fontSize: 16),
-                ),
-                trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16),
               ),
             );
           },
