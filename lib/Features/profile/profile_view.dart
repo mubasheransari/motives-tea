@@ -15,7 +15,6 @@ class _ProfileViewState extends State<ProfileView> {
     final Color primaryBlue = const Color(0xFF5D6EFF);
     final Color lightBlue = const Color(0xFF8A97FF);
 
-    // Mock profile data
     final profile = {
       "profileImageUrl": "assets/profile_icon.png",
       "firstname": "Test",

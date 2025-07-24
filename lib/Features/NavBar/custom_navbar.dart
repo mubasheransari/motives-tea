@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../leave_request/leave_request_view.dart';
+
 class CustomNavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,13 @@ class CustomNavDrawer extends StatelessWidget {
                           children: [
                             _buildMenuItem(
                                 "assets/leave_request.png", 'Leave Request',
-                                onTap: () async {}),
+                                onTap: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LeaveApplicationFormScreen()));
+                            }),
                             _buildMenuItem("assets/change_password.png",
                                 'Change Password'),
                             Divider(),
