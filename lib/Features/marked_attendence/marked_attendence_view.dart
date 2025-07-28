@@ -341,7 +341,7 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(24),
                   child: GoogleMap(
-                    padding: const EdgeInsets.only(bottom: 40),
+                    padding: EdgeInsets.only(bottom: 40),
                     onMapCreated: _onMapCreated,
                     initialCameraPosition: _cameraPosition!,
                     mapType: MapType.normal,
