@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print("HOME VIEW ${widget.connectivity}");
 
     final List<Widget> screens = [
+      
       widget.connectivity == true
           ? MarkedAttendenceView()
           : MarkedAttendenceOffline(),

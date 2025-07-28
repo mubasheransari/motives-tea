@@ -1,3 +1,4 @@
+import 'package:attendence_app/Features/home/home_view.dart';
 import 'package:flutter/material.dart';
 
 import '../leave_request/leave_request_view.dart';
@@ -43,6 +44,15 @@ class CustomNavDrawer extends StatelessWidget {
                         child: ListView(
                           padding: EdgeInsets.zero,
                           children: [
+                            _buildMenuItem("assets/home_icon.png", 'Home',
+                                onTap: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen(
+                                            connectivity: true,
+                                          )));
+                            }),
                             _buildMenuItem(
                                 "assets/leave_request.png", 'Leave Request',
                                 onTap: () async {
