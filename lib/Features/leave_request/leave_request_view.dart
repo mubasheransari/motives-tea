@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../widgets/customScaffoldWidget.dart';
 
 class LeaveApplicationFormScreen extends StatefulWidget {
@@ -24,7 +23,6 @@ class _LeaveApplicationFormScreenState
 
   final Color primaryBlue = const Color(0xFF5D6EFF);
 
-  // Date picker for Start and End Dates
   _selectDate(BuildContext context, bool isStart) async {
     final initialDate = isStart
         ? DateTime.now()
@@ -49,8 +47,6 @@ class _LeaveApplicationFormScreenState
       setState(() {
         if (isStart) {
           _startDate = picked;
-
-          // Reset end date if it becomes invalid
           if (_endDate != null &&
               (_endDate!.isBefore(picked) ||
                   _endDate!.isAtSameMomentAs(picked))) {
@@ -87,7 +83,6 @@ class _LeaveApplicationFormScreenState
         }
       }
 
-      // Successful form submission
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Leave Application Submitted')),
       );
@@ -157,7 +152,7 @@ class _LeaveApplicationFormScreenState
       ),
     );
   }
-  
+
 
   Widget _buildTextField(TextEditingController controller, String label) {
     return Padding(
@@ -170,7 +165,7 @@ class _LeaveApplicationFormScreenState
     );
   }
 
-  // Reusable date field (Start / End)
+
   Widget _buildDateField(BuildContext context, bool isStart) {
     final date = isStart ? _startDate : _endDate;
     final label = isStart ? "Start Date" : "End Date";
