@@ -1,6 +1,5 @@
 import 'package:attendence_app/Features/home/home_view.dart';
 import 'package:flutter/material.dart';
-
 import '../leave_request/leave_request_view.dart';
 
 class CustomNavDrawer extends StatelessWidget {
@@ -30,7 +29,9 @@ class CustomNavDrawer extends StatelessWidget {
                         child: Text(
                           "Hello, Test User",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
 
@@ -43,26 +44,36 @@ class CustomNavDrawer extends StatelessWidget {
                         child: ListView(
                           padding: EdgeInsets.zero,
                           children: [
-                            _buildMenuItem("assets/home_icon.png", 'Home',
-                                onTap: () async {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen(
-                                            connectivity: true,
-                                          )));
-                            }),
                             _buildMenuItem(
-                                "assets/leave_request.png", 'Leave Request',
-                                onTap: () async {
-                              Navigator.push(
+                              "assets/home_icon.png",
+                              'Home',
+                              onTap: () async {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          LeaveApplicationFormScreen()));
-                            }),
-                            _buildMenuItem("assets/change_password.png",
-                                'Change Password'),
+                                    builder: (context) =>
+                                        HomeScreen(connectivity: true),
+                                  ),
+                                );
+                              },
+                            ),
+                            _buildMenuItem(
+                              "assets/leave_request.png",
+                              'Leave Request',
+                              onTap: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        LeaveApplicationFormScreen(),
+                                  ),
+                                );
+                              },
+                            ),
+                            _buildMenuItem(
+                              "assets/change_password.png",
+                              'Change Password',
+                            ),
                             Divider(),
                             ListTile(
                               leading: Image.asset("assets/logout.png"),
@@ -70,9 +81,10 @@ class CustomNavDrawer extends StatelessWidget {
                               title: Text(
                                 'Logout',
                                 style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18),
+                                  color: Colors.redAccent,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                ),
                               ),
                               onTap: () {
                                 //   logoutDialog(context);
@@ -101,29 +113,18 @@ class CustomNavDrawer extends StatelessWidget {
     return Container(
       color: selected ? Color(0xFFDDE8FF) : Colors.transparent,
       child: ListTile(
-          leading: Image.asset(
-            icon,
-            height: 40,
-            width: 40,
+        leading: Image.asset(icon, height: 40, width: 40),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 17,
+            color: Color(0xff323747),
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Satoshi',
           ),
-          title: Text(title,
-              style: TextStyle(
-                fontSize: 17,
-                color: Color(0xff323747),
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Satoshi',
-              )),
-          onTap: onTap),
-    );
-  }
-
-  Widget _buildExpandableMenu(BuildContext context,
-      {required IconData icon, required String title, List<Widget>? children}) {
-    return ExpansionTile(
-      leading: Icon(icon, color: Colors.grey[800], size: 22),
-      title: Text(title, style: TextStyle(fontSize: 16, color: Colors.black87)),
-      children: children ?? [],
-      trailing: Icon(Icons.keyboard_arrow_down),
+        ),
+        onTap: onTap,
+      ),
     );
   }
 }

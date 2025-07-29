@@ -114,7 +114,7 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
               zoomControlsEnabled: true,
             )
           else
-            const SizedBox(), // Shows nothing, no spinner
+            const SizedBox(), 
           Positioned(
             top: 38,
             left: 16,

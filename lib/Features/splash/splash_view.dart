@@ -10,11 +10,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // late StreamSubscription<ConnectivityResult> _subscription;
   late StreamSubscription<List<ConnectivityResult>> _subscription;
 
   bool _navigated = false;
-  //bool? isConnected;
 
   @override
   void initState() {

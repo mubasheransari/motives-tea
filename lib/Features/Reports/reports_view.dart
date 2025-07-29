@@ -29,7 +29,7 @@ class _ReportsViewScreenState extends State<ReportsViewScreen> {
     for (int i = 0; i < 30; i++) {
       final date = now.subtract(Duration(days: i));
 
-      final checkInHour = 7 + random.nextInt(3); // 7,8,9
+      final checkInHour = 7 + random.nextInt(3);
       final checkInMinute = random.nextInt(60);
       final checkInSecond = random.nextInt(60);
 
@@ -42,8 +42,7 @@ class _ReportsViewScreenState extends State<ReportsViewScreen> {
         checkInSecond,
       );
 
-      // Add random 6–9 hour duration
-      final randomHours = 6 + random.nextInt(4); // 6,7,8,9
+      final randomHours = 6 + random.nextInt(4); 
       final randomMinutes = random.nextInt(60);
       final randomSeconds = random.nextInt(60);
 
