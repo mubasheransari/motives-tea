@@ -22,7 +22,6 @@ class CustomNavDrawer extends StatelessWidget {
             child: SafeArea(
               child: Stack(
                 children: [
-                  // Main content - a column with all the items10@Testing
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -106,7 +105,7 @@ class CustomNavDrawer extends StatelessWidget {
             icon,
             height: 40,
             width: 40,
-          ), //Icon(icon, color: Colors.grey[800], size: 22),
+          ),
           title: Text(title,
               style: TextStyle(
                 fontSize: 17,
