@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:location/location.dart' as loc;
 import '../NavBar/custom_navbar.dart';
 import '../NavBar/drawer_menu_button.dart';
@@ -136,18 +140,136 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
     _mapController = controller;
   }
 
-  void _markAttendance() {
-    // TODO: Replace with real logic
+  final ImagePicker _picker = ImagePicker();
+File? _capturedImage;
+
+void _markAttendance() async {
+  final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+  DateTime now = DateTime.now();
+  String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+
+  if (photo != null) {
+    setState(() {
+      _capturedImage = File(photo.path);
+    });
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Dialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12), // slight curve
+        ),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.5, // dialog height
+          width: MediaQuery.of(context).size.width * 0.9, // dialog width
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Text(
+                  'Attendance Details',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.9 * 0.7, // 70% of dialog width
+                  height: MediaQuery.of(context).size.height * 0.5 * 0.5, // 50% of dialog height
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.file(
+                      _capturedImage!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  formattedDate,
+                  style: const TextStyle(fontSize: 14),
+                ),
+                const Spacer(),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Close'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  } else {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Attendance marked!')),
+      const SnackBar(content: Text('Camera cancelled or failed')),
     );
   }
+}
+
+
+
+// void _markAttendance() async {
+//   final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+//   DateTime now = DateTime.now();
+//     String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+//   if (photo != null) {
+//     setState(() {
+//       _capturedImage = File(photo.path);
+//     });
+
+//     // Show captured image in dialog
+//     showDialog(
+//       context: context,
+//       builder: (context) => SizedBox(
+//         height: MediaQuery.of(context).size.height*0.30,
+//         child: AlertDialog(
+          
+//           title: const Text('Attendence Details',style: TextStyle(fontSize: 15),),
+//           content: Column(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Image.file(_capturedImage!),
+//               SizedBox(height: 10,),
+//               Text(formattedDate),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: const Text('Close'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   } else {
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       const SnackBar(content: Text('Camera cancelled or failed')),
+//     );
+//   }
+// }
+
+
+  // void _markAttendance() {
+  //   // TODO: Replace with real logic
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     const SnackBar(content: Text('Attendance marked!')),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: CustomNavDrawer(),
+      //key: _scaffoldKey,
+    //  drawer: CustomNavDrawer(),
       body: Stack(
         children: [
           if (_isMapReady && _initialCameraPosition != null)
@@ -184,7 +306,7 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
               ),
             ),
           Positioned(
-            bottom: 62,
+            bottom: 30,
             left: 16,
             right: 16,
             child: ElevatedButton(
