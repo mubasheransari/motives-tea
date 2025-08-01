@@ -37,7 +37,7 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
     _addRandomShopMarkers();
     setState(() {
       _isMapReady = true;
-      distanceInfo = ''; // start empty
+      distanceInfo = '';
     });
   }
 
@@ -104,9 +104,9 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
           markerId: MarkerId(shopId),
           position: shopLatLng,
           icon: _shopMarkerIcon ?? BitmapDescriptor.defaultMarker,
-          infoWindow: InfoWindow(title: 'Shop ${i + 1}'),
+          infoWindow: InfoWindow(title: 'Location ${i + 1}'),
           onTap: () {
-            _showTappedMarkerDistance(shopLatLng, 'Shop ${i + 1}');
+            _showTappedMarkerDistance(shopLatLng, 'Location ${i + 1}');
           },
         ),
       );
@@ -148,7 +148,7 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
               mapType: MapType.normal,
               markers: _markers,
               myLocationButtonEnabled: false,
-              zoomControlsEnabled: true,
+              zoomControlsEnabled: false,
             ),
           Positioned(
             top: 38,
@@ -157,7 +157,7 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
           ),
           if (distanceInfo.isNotEmpty)
             Positioned(
-              bottom: 20,
+              bottom: 70,
               left: 16,
               right: 16,
               child: Container(

@@ -1,3 +1,4 @@
+import 'package:attendence_app/Features/Route/route_view.dart';
 import 'package:flutter/material.dart';
 
 
@@ -69,10 +70,10 @@ class SignInScreen extends StatelessWidget {
                       TextField(
                         controller: mobileController,
                         decoration: const InputDecoration(
-                          labelText: "Mobile Number",
+                          labelText: "Email",
                           border: OutlineInputBorder(),
                         ),
-                        keyboardType: TextInputType.phone,
+                        keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 16),
                       ValueListenableBuilder(
@@ -121,7 +122,9 @@ class SignInScreen extends StatelessWidget {
                       // ),
                       const SizedBox(height: 8),
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> RouteGoogleMap()));
+                        },
                         style: OutlinedButton.styleFrom(
                           minimumSize:  Size(150, 40),
                           shape: RoundedRectangleBorder(
