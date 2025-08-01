@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
-import 'package:geocoding/geocoding.dart';
 import '../NavBar/custom_navbar.dart';
 import '../NavBar/drawer_menu_button.dart';
 
-class MarkedAttendenceView extends StatefulWidget {
-  const MarkedAttendenceView({super.key});
+class RouteGoogleMap extends StatefulWidget {
+  const RouteGoogleMap({super.key});
 
   @override
-  State<MarkedAttendenceView> createState() => _MarkedAttendenceViewState();
+  State<RouteGoogleMap> createState() => _RouteGoogleMapState();
 }
 
-class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
+class _RouteGoogleMapState extends State<RouteGoogleMap> {
   final loc.Location location = loc.Location();
   late GoogleMapController _mapController;
   Set<Marker> _markers = {};
-  BitmapDescriptor? _customMarkerIcon;
-  String? _currentAddress;
+  BitmapDescriptor? _currentMarkerIcon;
+  BitmapDescriptor? _shopMarkerIcon;
+  LatLng? _currentLatLng;
   CameraPosition? _initialCameraPosition;
+  String distanceInfo = "";
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isMapReady = false;
@@ -30,15 +32,24 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
   }
 
   Future<void> _initMap() async {
-    await _loadCustomMarker();
+    await _loadCustomMarkers();
     await _requestPermissionAndFetchLocation();
-    setState(() => _isMapReady = true);
+    _addRandomShopMarkers();
+    setState(() {
+      _isMapReady = true;
+      distanceInfo = ''; // start empty
+    });
   }
 
-  Future<void> _loadCustomMarker() async {
-    _customMarkerIcon = await BitmapDescriptor.fromAssetImage(
+  Future<void> _loadCustomMarkers() async {
+    _currentMarkerIcon = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(devicePixelRatio: 2.5),
       'assets/g_marker.png',
+    );
+
+    _shopMarkerIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(devicePixelRatio: 2.5),
+      'assets/shop_icon_marker.png',
     );
   }
 
@@ -56,40 +67,66 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
     }
 
     final currentLocation = await location.getLocation();
-
-    final currentLatLng = LatLng(
-      currentLocation.latitude ?? 30.3753,
-      currentLocation.longitude ?? 69.3451,
+    _currentLatLng = LatLng(
+      currentLocation.latitude ?? 24.8607,
+      currentLocation.longitude ?? 67.0011,
     );
 
-    _initialCameraPosition = CameraPosition(target: currentLatLng, zoom: 18);
+    _initialCameraPosition = CameraPosition(target: _currentLatLng!, zoom: 14);
 
-    try {
-      final placemarks = await placemarkFromCoordinates(
-        currentLatLng.latitude,
-        currentLatLng.longitude,
-      );
-
-      if (placemarks.isNotEmpty) {
-        final place = placemarks.first;
-        final address =
-            "${place.name}, ${place.street}, ${place.locality}, ${place.country}";
-        _currentAddress = address;
-      }
-    } catch (e) {
-      debugPrint("Error getting address: $e");
-    }
-
-    if (_customMarkerIcon != null) {
+    if (_currentMarkerIcon != null) {
       _markers.add(
         Marker(
-          markerId: const MarkerId('custom_marker'),
-          position: currentLatLng,
-          icon: _customMarkerIcon!,
+          markerId: const MarkerId('current_location'),
+          position: _currentLatLng!,
+          icon: _currentMarkerIcon!,
           infoWindow: const InfoWindow(title: 'Your Location'),
         ),
       );
     }
+  }
+
+  void _addRandomShopMarkers() {
+    final List<LatLng> randomShops = [
+      const LatLng(24.8615, 67.0099),
+      const LatLng(24.8581, 67.0136),
+      const LatLng(24.8672, 67.0211),
+      const LatLng(24.8569, 67.0012),
+      const LatLng(24.8703, 67.0455),
+    ];
+
+    for (int i = 0; i < randomShops.length; i++) {
+      final shopId = 'shop_$i';
+      final shopLatLng = randomShops[i];
+
+      _markers.add(
+        Marker(
+          markerId: MarkerId(shopId),
+          position: shopLatLng,
+          icon: _shopMarkerIcon ?? BitmapDescriptor.defaultMarker,
+          infoWindow: InfoWindow(title: 'Shop ${i + 1}'),
+          onTap: () {
+            _showTappedMarkerDistance(shopLatLng, 'Shop ${i + 1}');
+          },
+        ),
+      );
+    }
+  }
+
+  void _showTappedMarkerDistance(LatLng target, String name) {
+    if (_currentLatLng == null) return;
+
+    double distanceInMeters = Geolocator.distanceBetween(
+      _currentLatLng!.latitude,
+      _currentLatLng!.longitude,
+      target.latitude,
+      target.longitude,
+    );
+
+    setState(() {
+      distanceInfo =
+          'Distance: ${(distanceInMeters / 1000).toStringAsFixed(2)} km (to $name)';
+    });
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -112,14 +149,30 @@ class _MarkedAttendenceViewState extends State<MarkedAttendenceView> {
               markers: _markers,
               myLocationButtonEnabled: false,
               zoomControlsEnabled: true,
-            )
-          else
-            const SizedBox(), 
+            ),
           Positioned(
             top: 38,
             left: 16,
             child: DrawerMenuButton(scaffoldKey: _scaffoldKey),
           ),
+          if (distanceInfo.isNotEmpty)
+            Positioned(
+              bottom: 20,
+              left: 16,
+              right: 16,
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  distanceInfo,
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
         ],
       ),
     );
