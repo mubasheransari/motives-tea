@@ -142,7 +142,7 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
         children: [
           if (_isMapReady && _initialCameraPosition != null)
             GoogleMap(
-              padding: const EdgeInsets.only(bottom: 40),
+              padding: const EdgeInsets.only(bottom: 60),
               onMapCreated: _onMapCreated,
               initialCameraPosition: _initialCameraPosition!,
               mapType: MapType.normal,

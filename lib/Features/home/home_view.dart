@@ -1,8 +1,9 @@
 import 'package:attendence_app/Features/Reports/reports_view.dart';
-import 'package:attendence_app/Features/marked_attendence/marked_attendence_offline.dart';
-import 'package:attendence_app/Features/marked_attendence/marked_attendence_view.dart';
+
 import 'package:attendence_app/Features/profile/profile_view.dart';
 import 'package:flutter/material.dart';
+
+import '../Route/route_view.dart';
 
 class HomeScreen extends StatefulWidget {
   bool connectivity;
@@ -25,10 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final List<Widget> screens = [
       RouteGoogleMap(),
-
-      // widget.connectivity == true
-      //     ? RouteGoogleMap()
-      //     : MarkedAttendenceOffline(),
       ReportsViewScreen(),
       ProfileView(),
     ];
