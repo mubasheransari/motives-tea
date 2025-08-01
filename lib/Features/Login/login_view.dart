@@ -1,4 +1,5 @@
 import 'package:attendence_app/Features/Route/route_view.dart';
+import 'package:attendence_app/Features/mark_attendance/mark_attendance.dart';
 import 'package:flutter/material.dart';
 
 
@@ -123,7 +124,7 @@ class SignInScreen extends StatelessWidget {
                       const SizedBox(height: 8),
                       OutlinedButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> RouteGoogleMap()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> MarkAttendanceView()));
                         },
                         style: OutlinedButton.styleFrom(
                           minimumSize:  Size(150, 40),
