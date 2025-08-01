@@ -36,14 +36,17 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _currentIndex,
         children: screens,
       ),
-      bottomNavigationBar: BottomNavBarExact(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
+      // bottomNavigationBar: Padding(
+      //   padding:  EdgeInsets.only(bottom:40.0),
+      //   child: BottomNavBarExact(
+      //     currentIndex: _currentIndex,
+      //     onTap: (index) {
+      //       setState(() {
+      //         _currentIndex = index;
+      //       });
+      //     },
+      //   ),
+      // ),
     );
   }
 }

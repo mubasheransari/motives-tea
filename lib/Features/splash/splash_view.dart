@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:attendence_app/Features/Login/login_view.dart';
 import 'package:attendence_app/Features/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -42,9 +43,11 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                    connectivity: isConnected,
-                  )),
+              builder: (context) => SignInScreen()
+              // HomeScreen(
+              //       connectivity: isConnected,
+              //     )
+                  ),
         );
       }
     });
@@ -149,133 +152,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-
-/*class SplashScreen extends StatefulWidget {
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Navigate to HomeScreen after 3 seconds
-    Timer(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
-    });
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          //color: Colors.white
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFE6DCFD),
-              Color(0xFFD8E7FF),
-
-              //Color(0xFF6495ED) // Color(0xFFD8E7FF),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 310.0),
-              child: Image.asset(
-                "assets/logo.png",
-                //  width: 160,
-                height: 166,
-              ),
-            ),
-            const Spacer(),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30.0),
-              child: Text(
-                'Powered by MEZANGRP',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-*/
-
-
-
-// class SplashScreen extends StatefulWidget {
-//   @override
-//   State<SplashScreen> createState() => _SplashScreenState();
-// }
-
-// class _SplashScreenState extends State<SplashScreen> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Navigate to HomeScreen after 3 seconds
-//     Timer(Duration(seconds: 3), () {
-//       Navigator.of(context).pushReplacement(
-//         MaterialPageRoute(builder: (context) => HomeScreen()),
-//       );
-//     });
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         width: MediaQuery.of(context).size.width,
-//         decoration: const BoxDecoration(
-//           //color: Colors.white
-//           gradient: LinearGradient(
-//             colors: [
-//               Color(0xFFE6DCFD),
-//               Color(0xFFD8E7FF),
-
-//               //Color(0xFF6495ED) // Color(0xFFD8E7FF),
-//             ],
-//             begin: Alignment.centerLeft,
-//             end: Alignment.centerRight,
-//           ),
-//         ),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.only(top: 310.0),
-//               child: Image.asset(
-//                 "assets/logo.png",
-//                 //  width: 160,
-//                 height: 166,
-//               ),
-//             ),
-//             const Spacer(),
-//             const Padding(
-//               padding: EdgeInsets.only(bottom: 30.0),
-//               child: Text(
-//                 'Powered by MEZANGRP',
-//                 style: TextStyle(
-//                   fontSize: 20,
-//                   fontWeight: FontWeight.w300,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
