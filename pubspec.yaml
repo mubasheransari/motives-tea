@@ -43,6 +43,7 @@ dependencies:
   geolocator:
   flutter_polyline_points: ^3.0.1
   image_picker: ^1.1.1
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:

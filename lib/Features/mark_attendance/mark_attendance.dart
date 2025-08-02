@@ -9,9 +9,6 @@ import 'package:location/location.dart' as loc;
 import '../NavBar/custom_navbar.dart';
 import '../NavBar/drawer_menu_button.dart';
 
-
-
-
 class MarkAttendanceView extends StatefulWidget {
   const MarkAttendanceView({super.key});
 
@@ -41,7 +38,7 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
   Future<void> _initMap() async {
     await _loadCustomMarkers();
     await _requestPermissionAndFetchLocation();
-   // _addRandomShopMarkers();
+    // _addRandomShopMarkers();
     setState(() {
       _isMapReady = true;
       distanceInfo = '';
@@ -141,79 +138,86 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
   }
 
   final ImagePicker _picker = ImagePicker();
-File? _capturedImage;
+  File? _capturedImage;
 
-void _markAttendance() async {
-  final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-  DateTime now = DateTime.now();
-  String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+  void _markAttendance() async {
+    final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
 
-  if (photo != null) {
-    setState(() {
-      _capturedImage = File(photo.path);
-    });
+    if (photo != null) {
+      setState(() {
+        _capturedImage = File(photo.path);
+      });
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Dialog(
-        insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12), // slight curve
-        ),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5, // dialog height
-          width: MediaQuery.of(context).size.width * 0.9, // dialog width
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text(
-                  'Attendance Details',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9 * 0.7, // 70% of dialog width
-                  height: MediaQuery.of(context).size.height * 0.5 * 0.5, // 50% of dialog height
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.file(
-                      _capturedImage!,
-                      fit: BoxFit.cover,
+      
+
+
+
+    /*  showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Dialog(
+          insetPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12), // slight curve
+          ),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.5, // dialog height
+            width: MediaQuery.of(context).size.width * 0.9, // dialog width
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Attendance Details',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width *
+                        0.9 *
+                        0.7, // 70% of dialog width
+                    height: MediaQuery.of(context).size.height *
+                        0.5 *
+                        0.5, // 50% of dialog height
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.file(
+                        _capturedImage!,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  formattedDate,
-                  style: const TextStyle(fontSize: 14),
-                ),
-                const Spacer(),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Close'),
+                  const SizedBox(height: 10),
+                  Text(
+                    formattedDate,
+                    style: const TextStyle(fontSize: 14),
                   ),
-                ),
-              ],
+                  const Spacer(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Close'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Camera cancelled or failed')),
-    );
+      );*/
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Camera cancelled or failed')),
+      );
+    }
   }
-}
-
-
 
 // void _markAttendance() async {
 //   final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
@@ -230,7 +234,7 @@ void _markAttendance() async {
 //       builder: (context) => SizedBox(
 //         height: MediaQuery.of(context).size.height*0.30,
 //         child: AlertDialog(
-          
+
 //           title: const Text('Attendence Details',style: TextStyle(fontSize: 15),),
 //           content: Column(
 //             mainAxisAlignment: MainAxisAlignment.start,
@@ -257,7 +261,6 @@ void _markAttendance() async {
 //   }
 // }
 
-
   // void _markAttendance() {
   //   // TODO: Replace with real logic
   //   ScaffoldMessenger.of(context).showSnackBar(
@@ -269,7 +272,7 @@ void _markAttendance() async {
   Widget build(BuildContext context) {
     return Scaffold(
       //key: _scaffoldKey,
-    //  drawer: CustomNavDrawer(),
+      //  drawer: CustomNavDrawer(),
       body: Stack(
         children: [
           if (_isMapReady && _initialCameraPosition != null)
@@ -282,11 +285,11 @@ void _markAttendance() async {
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
             ),
-          Positioned(
-            top: 38,
-            left: 16,
-            child: DrawerMenuButton(scaffoldKey: _scaffoldKey),
-          ),
+          // Positioned(
+          //   top: 38,
+          //   left: 16,
+          //   child: DrawerMenuButton(scaffoldKey: _scaffoldKey),
+          // ),
           if (distanceInfo.isNotEmpty)
             Positioned(
               bottom: 70,
@@ -318,9 +321,12 @@ void _markAttendance() async {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child:  Text(
+              child: Text(
                 'Mark Attendance',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ),
           ),
