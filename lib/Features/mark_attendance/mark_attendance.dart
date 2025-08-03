@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:attendence_app/Features/home/home_view.dart';
+import 'package:attendence_app/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -143,18 +145,26 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
   void _markAttendance() async {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+
+    String formattedTime = DateFormat('hh:mm a').format(now); // e.g., 03:45 PM
+    String formattedDate =
+        DateFormat('yyyy-MM-dd').format(now); // e.g., 2025-08-03
 
     if (photo != null) {
       setState(() {
         _capturedImage = File(photo.path);
       });
 
-      
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(connectivity: true)));
 
+      toastWidget(
+          "Your Attendence is marked successfully at $formattedTime on $formattedDate.",
+          Colors.green);
 
-
-    /*  showDialog(
+      /*  showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => Dialog(
@@ -292,11 +302,11 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
           // ),
           if (distanceInfo.isNotEmpty)
             Positioned(
-              bottom: 70,
+              bottom: 30,
               left: 16,
               right: 16,
               child: Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(0),
                 decoration: BoxDecoration(
                   color: Colors.white70,
                   borderRadius: BorderRadius.circular(10),

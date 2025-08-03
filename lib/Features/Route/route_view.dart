@@ -57,9 +57,9 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
   bool _isMapReady = false;
 
   StreamSubscription<loc.LocationData>? _locationSubscription;
-    final String _googleApiKey = "AIzaSyD64TeJchgwVToC1U2IbrCBtjWKeVzuy-U";
-  final PolylinePoints _polylinePoints = PolylinePoints(apiKey: "AIzaSyD64TeJchgwVToC1U2IbrCBtjWKeVzuy-U");
-
+  final String _googleApiKey = "AIzaSyD64TeJchgwVToC1U2IbrCBtjWKeVzuy-U";
+  final PolylinePoints _polylinePoints =
+      PolylinePoints(apiKey: "AIzaSyD64TeJchgwVToC1U2IbrCBtjWKeVzuy-U");
 
   @override
   void initState() {
@@ -129,7 +129,8 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
   }
 
   void _listenToLiveLocation() {
-    _locationSubscription = location.onLocationChanged.listen((loc.LocationData locData) {
+    _locationSubscription =
+        location.onLocationChanged.listen((loc.LocationData locData) {
       final newPosition = LatLng(locData.latitude!, locData.longitude!);
 
       setState(() {
@@ -187,28 +188,28 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
       target.longitude,
     );
     setState(() {
-      distanceInfo = 'Distance: ${(distanceInMeters / 1000).toStringAsFixed(2)} km (to $name)';
+      distanceInfo =
+          'Distance: ${(distanceInMeters / 1000).toStringAsFixed(2)} km (to $name)';
     });
   }
 
   Future<void> _drawRoutePolyline(LatLng destination) async {
     if (_currentLatLng == null) return;
 
- final result = await _polylinePoints.getRouteBetweenCoordinates(
-  // ignore: deprecated_member_use
-  request: PolylineRequest(
-  //  apiKey: _googleApiKey,
-    origin: PointLatLng(_currentLatLng!.latitude, _currentLatLng!.longitude),
-    destination: PointLatLng(destination.latitude, destination.longitude),
-    mode: TravelMode.driving, 
-  ),
-);
-
+    final result = await _polylinePoints.getRouteBetweenCoordinates(
+      // ignore: deprecated_member_use
+      request: PolylineRequest(
+        //  apiKey: _googleApiKey,
+        origin:
+            PointLatLng(_currentLatLng!.latitude, _currentLatLng!.longitude),
+        destination: PointLatLng(destination.latitude, destination.longitude),
+        mode: TravelMode.driving,
+      ),
+    );
 
     if (result.status == 'OK' && result.points.isNotEmpty) {
-      final polylineCoordinates = result.points
-          .map((e) => LatLng(e.latitude, e.longitude))
-          .toList();
+      final polylineCoordinates =
+          result.points.map((e) => LatLng(e.latitude, e.longitude)).toList();
 
       setState(() {
         _polylines.clear();
@@ -251,7 +252,7 @@ class _RouteGoogleMapState extends State<RouteGoogleMap> {
           ),
           if (distanceInfo.isNotEmpty)
             Positioned(
-              bottom: 70,
+              bottom: 30,
               left: 16,
               right: 16,
               child: Container(
