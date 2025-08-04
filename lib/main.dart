@@ -23,8 +23,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: time != null ? HomeDashboard() //RouteGoogleMap()
-      : SplashScreen()
+      home: SplashScreen()       
+      // time != null ? HomeDashboard() //RouteGoogleMap()
+      // : SplashScreen()
     );     
   }
 }

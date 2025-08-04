@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:attendence_app/Features/login/login_view.dart';
 import 'package:attendence_app/Features/home/home_view.dart';
+import 'package:attendence_app/Features/mark_attendance/mark_attendance.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -43,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-              builder: (context) => SignInScreen()
+              builder: (context) => MarkAttendanceView()
               // HomeScreen(
               //       connectivity: isConnected,
               //     )

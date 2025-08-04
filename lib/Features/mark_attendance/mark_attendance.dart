@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:attendence_app/Features/home/home_view.dart';
+import 'package:attendence_app/Features/home_dashboard/home_dashboard.dart';
 import 'package:attendence_app/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -161,7 +162,7 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => HomeScreen(connectivity: true)));
+              builder: (context) => HomeDashboard()));
 
       toastWidget(
           "Your Attendence is marked successfully at $formattedTime on $formattedDate.",
