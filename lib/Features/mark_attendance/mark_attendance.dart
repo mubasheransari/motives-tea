@@ -9,8 +9,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart' as loc;
-import '../NavBar/custom_navbar.dart';
-import '../NavBar/drawer_menu_button.dart';
+import '../navbar/custom_navbar.dart';
+import '../navbar/drawer_menu_button.dart';
 
 class MarkAttendanceView extends StatefulWidget {
   const MarkAttendanceView({super.key});
@@ -118,7 +118,7 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
   //       ),
   //     );
   //   }
-  // }
+  // 
 
   void _showTappedMarkerDistance(LatLng target, String name) {
     if (_currentLatLng == null) return;

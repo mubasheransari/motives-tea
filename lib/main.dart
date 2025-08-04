@@ -1,8 +1,8 @@
+import 'package:attendence_app/Features/home_dashboard/home_dashboard.dart';
 import 'package:attendence_app/Features/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-
-import 'Features/Route/route_view.dart';
+import 'Features/Routes/route_view.dart';
 
 void main() async{
    await GetStorage.init();
@@ -23,8 +23,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: time != null ? RouteGoogleMap(): SplashScreen()
-    );
+      home: time != null ? HomeDashboard() //RouteGoogleMap()
+      : SplashScreen()
+    );     
   }
 }
 

@@ -1,0 +1,366 @@
+import 'package:attendence_app/Features/routes/route_view.dart';
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:intl/intl.dart';
+
+class HomeDashboard extends StatefulWidget {
+  @override
+  _HomeDashboardState createState() => _HomeDashboardState();
+}
+
+class _HomeDashboardState extends State<HomeDashboard> {
+  double circularValue = 4.55; // Dynamic circular value
+  int redPercent = 5;
+  int yellowPercent = 15;
+  int greenPercent = 80;
+
+  List<String> days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  int selectedIndex = 3; // Default to Wednesday
+
+  List<FlSpot> graphPoints = [
+    FlSpot(0, 2.5),
+    FlSpot(1, 3.0),
+    FlSpot(2, 3.8),
+    FlSpot(3, 4.2),
+    FlSpot(4, 3.9),
+    FlSpot(5, 4.5),
+    FlSpot(6, 4.1),
+  ];
+
+  final List<Map<String, dynamic>> menuFeatures = [
+    {'icon': Icons.lock_clock, 'label': 'Time\nCard'},
+    {'icon': Icons.route, 'label': "Today's\nRoute"},
+    {'icon': Icons.shopping_cart, 'label': 'Punch\nOrder'},
+    {'icon': Icons.cloud_download, 'label': 'Sync\nIn'},
+    //{'icon': Icons.sync_outlined, 'label': 'Sync\nIn'},
+    // {'icon': Icons.local_pharmacy_outlined, 'label': 'Sync\nOut'},
+    // {'icon': Icons.local_pharmacy_outlined, 'label': "Shop\nOwner\nReview"},
+  ];
+
+  final List<Map<String, dynamic>> menuFeatures1 = [
+    {'icon': Icons.cloud_upload, 'label': 'Sync\nIn'},
+    {'icon': Icons.reviews, 'label': "Shop\nOwner\nReview"},
+    {'icon': Icons.event_busy, 'label': "Leave\nRequest"},
+    {'icon': Icons.event_busy, 'label': "Leave\nRequest"},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Routes",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Row(
+                        children: [
+                          _statusDot(Colors.green, "Planned"),
+                          _statusDot(Colors.orange, "Actual"),
+                          // _statusDot(Colors.green, "Productive"),
+                          // _statusDot(Colors.black, "Remaining"),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          _statusDot(Colors.green, "Productive"),
+                          _statusDot(Colors.black, "Remaining"),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  /// Circular Indicator
+                  CircularPercentIndicator(
+                    radius: 50.0,
+                    lineWidth: 8.0,
+                    percent: (circularValue / 10).clamp(0.0, 1.0),
+                    center: Text(
+                      "Today's\nRoute", //"$circularValue",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    progressColor: Colors.blue,
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+
+              /// Progress Bar
+              Row(
+                children: [
+                  Expanded(
+                    flex: redPercent,
+                    child: Container(height: 10, color: Colors.red),
+                  ),
+                  Expanded(
+                    flex: yellowPercent,
+                    child: Container(height: 10, color: Colors.orange),
+                  ),
+                  Expanded(
+                    flex: greenPercent,
+                    child: Container(height: 10, color: Colors.green),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+
+              /// Day Selector
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(days.length, (index) {
+                  return GestureDetector(
+                    onTap: () => setState(() => selectedIndex = index),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: selectedIndex == index
+                            ? Colors.blue
+                            : Colors.transparent,
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            days[index],
+                            style: TextStyle(
+                              color: selectedIndex == index
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('d').format(
+                              DateTime.now().subtract(
+                                Duration(days: 3 - index),
+                              ),
+                            ),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: selectedIndex == index
+                                  ? Colors.white
+                                  : Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+              ),
+              SizedBox(height: 24),
+
+              /// Line Graph
+              Container(
+                //  color: Colors.grey[100],
+                child: SizedBox(
+                  height: 160,
+                  child: LineChart(
+                    LineChartData(
+                      gridData: FlGridData(show: true),
+                      titlesData: FlTitlesData(show: false),
+                      borderData: FlBorderData(show: false),
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: graphPoints,
+                          isCurved: true,
+                          color: Colors.blue,
+                          barWidth: 3,
+                          dotData: FlDotData(show: true),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "LAST ACTION PERFORMED : CHECK-IN",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withOpacity(0.1),
+                    ),
+                    height: 70,
+                    width: 90,
+                    child: Center(
+                      child: Text(
+                        "Targets",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withOpacity(0.1),
+                    ),
+                    height: 70,
+                    width: 90,
+                    child: Center(
+                      child: Text(
+                        "Sales Tons",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withOpacity(0.1),
+                    ),
+                    height: 70,
+                    width: 90,
+                    child: Center(
+                      child: Text(
+                        "Ach Per",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Card(
+                color: Colors.white,
+                elevation: 0,
+                margin: const EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: SizedBox(
+                  height: 120,
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: menuFeatures.length,
+                    separatorBuilder: (_, __) => SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.14,
+                    ),
+                    itemBuilder: (context, index) {
+                      final features = menuFeatures[index];
+                      print("OPTIONs CLICKED ${features['label']}");
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        onTap: () {
+                            print("OPTIONs CLICKED ${features['label']}");
+                            if(features['label'] == "Time\nCard"){
+                              print("Mubashetr");
+                                print("Mubashetr");
+                                  print("Mubashetr");
+                            }
+                            else if(features['label'] == "Today's\nRoute"){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> RouteGoogleMap()));
+                            }
+                        },
+                        child: Column(
+                          //  mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.blue.withOpacity(0.1),
+                              child: Icon(features['icon'], color: Colors.blue),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              features['label'],
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Card(
+                color: Colors.white,
+                elevation: 0,
+                margin: const EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: SizedBox(
+                  height: 120,
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: menuFeatures1.length,
+                    separatorBuilder: (_, __) => SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.14,
+                    ),
+                    itemBuilder: (context, index) {
+                      final features = menuFeatures1[index];
+                      print("OPTION CLICKED $features");
+                      return Column(
+                        //  mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.blue.withOpacity(0.1),
+                            child: Icon(features['icon'], color: Colors.blue),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            features['label'],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _statusDot(Color color, String label) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: Row(
+        children: [
+          CircleAvatar(radius: 4, backgroundColor: color),
+          SizedBox(width: 4),
+          Text(label, style: TextStyle(fontSize: 12)),
+        ],
+      ),
+    );
+  }
+}

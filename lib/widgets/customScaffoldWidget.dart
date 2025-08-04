@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../Features/NavBar/custom_navbar.dart';
-import '../Features/NavBar/drawer_menu_button.dart';
+import '../Features/navbar/custom_navbar.dart';
+import '../Features/navbar/drawer_menu_button.dart';
 
 
 class CustomScaffoldWidget extends StatelessWidget {

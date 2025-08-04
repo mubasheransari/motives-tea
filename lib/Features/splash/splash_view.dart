@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:attendence_app/Features/Login/login_view.dart';
+import 'package:attendence_app/Features/login/login_view.dart';
 import 'package:attendence_app/Features/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';

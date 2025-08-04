@@ -1,9 +1,9 @@
-import 'package:attendence_app/Features/Reports/reports_view.dart';
+import 'package:attendence_app/Features/reports/reports_view.dart';
 
 import 'package:attendence_app/Features/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 
-import '../Route/route_view.dart';
+import '../routes/route_view.dart';
 
 class HomeScreen extends StatefulWidget {
   bool connectivity;
