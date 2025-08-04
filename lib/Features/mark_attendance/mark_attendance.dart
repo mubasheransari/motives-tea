@@ -4,6 +4,7 @@ import 'package:attendence_app/Features/home/home_view.dart';
 import 'package:attendence_app/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -149,7 +150,9 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
     String formattedTime = DateFormat('hh:mm a').format(now); // e.g., 03:45 PM
     String formattedDate =
         DateFormat('yyyy-MM-dd').format(now); // e.g., 2025-08-03
-
+    final storage = GetStorage();
+    storage.write("checkin_time", formattedTime);
+    storage.write("checkin_date", formattedDate);
     if (photo != null) {
       setState(() {
         _capturedImage = File(photo.path);

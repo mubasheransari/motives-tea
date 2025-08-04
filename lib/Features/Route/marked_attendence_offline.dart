@@ -61,6 +61,7 @@ class _MarkedAttendenceOfflineState extends State<MarkedAttendenceOffline> {
         final now = DateTime.now();
         currentDate = DateFormat('yyyy-MM-dd').format(now);
         currentTime = DateFormat('hh:mm a').format(now);
+        
 
         statusMessage = 'Location acquired successfully.';
       });
