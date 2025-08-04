@@ -1,3 +1,4 @@
+import 'package:attendence_app/Features/punch_order/punch_order.dart';
 import 'package:attendence_app/Features/routes/route_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -280,6 +281,9 @@ class _HomeDashboardState extends State<HomeDashboard> {
                             }
                             else if(features['label'] == "Today's\nRoute"){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> RouteGoogleMap()));
+                            }
+                                else if(features['label'] == "Punch\nOrder"){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> PunchOrderView()));
                             }
                         },
                         child: Column(
