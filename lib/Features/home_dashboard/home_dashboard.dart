@@ -318,42 +318,91 @@ class _HomeDashboardState extends State<HomeDashboard> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     height: 60,
-                    width: 90,
-                    child: Center(
-                      child: Text(
-                        "Targets",
-                        style: TextStyle(color: Colors.black),
-                      ),
+                    width: MediaQuery.of(context).size.width *0.28,
+                    child: Row(
+                      children: [
+                        SizedBox(width: 5,),
+                        Center(child: Icon(Icons.gps_fixed, size: 25,color: Colors.blue,)),
+                         SizedBox(width: 3,),
+                        Center(
+                          child: Text(
+                            "Targets",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
+                     Container(
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     height: 60,
-                    width: 90,
-                    child: Center(
-                      child: Text(
-                        "Sales Tons",
-                        style: TextStyle(color: Colors.black),
-                      ),
+                    width: MediaQuery.of(context).size.width *0.31,
+                    child: Row(
+                      children: [
+                        SizedBox(width: 5,),
+                        Center(child: Icon(Icons.show_chart, size: 25,color: Colors.blue,)),
+                         SizedBox(width: 3,),
+                        Center(
+                          child: Text(
+                            "Sales Tons",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
+                         Container(
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     height: 60,
-                    width: 90,
-                    child: Center(
-                      child: Text(
-                        "Ach Per",
-                        style: TextStyle(color: Colors.black),
-                      ),
+                    width: MediaQuery.of(context).size.width *0.28,
+                    child: Row(
+                      children: [
+                        SizedBox(width: 5,),
+                        Center(child: Icon(Icons.percent, size: 22,color: Colors.blue,)),
+                         SizedBox(width: 3,),
+                        Center(
+                          child: Text(
+                            "Ach Per",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.blue.withOpacity(0.1),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   height: 60,
+                  //   width: 90,
+                  //   child: Center(
+                  //     child: Text(
+                  //       "Sales Tons",
+                  //       style: TextStyle(color: Colors.black),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.blue.withOpacity(0.1),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   height: 60,
+                  //   width: 90,
+                  //   child: Center(
+                  //     child: Text(
+                  //       "Ach Per",
+                  //       style: TextStyle(color: Colors.black),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
               Card(
