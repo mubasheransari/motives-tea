@@ -157,19 +157,15 @@ class _HomeDashboardState extends State<HomeDashboard> {
                               endWidth: 29,
                             ),
                           ],
-                          // 🔴 Remove this if you don't want any needle or pointer
-                          // pointers: <GaugePointer>[
-                          //   NeedlePointer(value: circularValue * 10),
-                          // ],
+                         
                           annotations: <GaugeAnnotation>[
                             GaugeAnnotation(
                               widget: Text(
                                 "Today's\nRoute",
                                 textAlign: TextAlign.center,
                               ),
-                              angle: 0, // 👈 Correct angle for centering
-                              positionFactor: 0, // 👈 Perfectly center the text
-                              // positionFactor: 0.5,
+                              angle: 0, 
+                              positionFactor: 0, 
                             ),
                           ],
                         ),
