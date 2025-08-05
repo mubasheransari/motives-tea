@@ -100,14 +100,13 @@ class _HomeDashboardState extends State<HomeDashboard> {
                     ],
                   ),
                   SizedBox(
-                    height: 100,
-                    width: 100,
-
+                    height: 150,
+                    width: 150,
                     child: SfRadialGauge(
                       axes: <RadialAxis>[
                         RadialAxis(
-                          startAngle: 270,
-                          endAngle: 270,
+                          startAngle: 180,
+                          endAngle: 180,
                           minimum: 0,
                           maximum: 100,
 
@@ -115,32 +114,40 @@ class _HomeDashboardState extends State<HomeDashboard> {
                           showLabels: false,
                           ranges: <GaugeRange>[
                             GaugeRange(
+                              label: 'Planned (3)',
+                              labelStyle: GaugeTextStyle(fontSize: 10,color: Colors.white),
                               startValue: 0,
                               endValue: 25,
-                              color: Colors.red,
-                              startWidth: 8,
-                              endWidth: 8,
+                              color: Colors.green,
+                           startWidth: 29,
+                              endWidth: 29,
                             ),
                             GaugeRange(
+                                  label: 'Actual (1)',
+                              labelStyle: GaugeTextStyle(fontSize: 10,color: Colors.white),
                               startValue: 25,
                               endValue: 50,
                               color: Colors.orange,
-                              startWidth: 8,
-                              endWidth: 8,
+                                 startWidth: 29,
+                              endWidth: 29,
                             ),
                             GaugeRange(
+                                                  label: 'Productive (1)',
+                              labelStyle: GaugeTextStyle(fontSize: 10,color: Colors.white),
                               startValue: 50,
                               endValue: 75,
                               color: Colors.yellow,
-                              startWidth: 8,
-                              endWidth: 8,
+                                  startWidth: 29,
+                              endWidth: 29,
                             ),
                             GaugeRange(
+                                                  label: 'Remaining (1)',
+                              labelStyle: GaugeTextStyle(fontSize: 10,color: Colors.white),
                               startValue: 75,
                               endValue: 100,
                               color: Colors.red,
-                              startWidth: 8,
-                              endWidth: 8,
+                             startWidth: 29,
+                              endWidth: 29,
                             ),
                           ],
                           // 🔴 Remove this if you don't want any needle or pointer
