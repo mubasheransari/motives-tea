@@ -35,9 +35,6 @@ class _HomeDashboardState extends State<HomeDashboard> {
     {'icon': Icons.route, 'label': "Today's\nRoute"},
     {'icon': Icons.shopping_cart, 'label': 'Punch\nOrder'},
     {'icon': Icons.cloud_download, 'label': 'Sync\nIn'},
-    //{'icon': Icons.sync_outlined, 'label': 'Sync\nIn'},
-    // {'icon': Icons.local_pharmacy_outlined, 'label': 'Sync\nOut'},
-    // {'icon': Icons.local_pharmacy_outlined, 'label': "Shop\nOwner\nReview"},
   ];
 
   final List<Map<String, dynamic>> menuFeatures1 = [
@@ -78,8 +75,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                       Text(
                         "Routes",
                         style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       SizedBox(height: 4),
@@ -87,8 +84,6 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         children: [
                           _statusDot(Colors.green, "Planned"),
                           _statusDot(Colors.orange, "Actual"),
-                          // _statusDot(Colors.green, "Productive"),
-                          // _statusDot(Colors.black, "Remaining"),
                         ],
                       ),
                       Row(
@@ -375,34 +370,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.blue.withOpacity(0.1),
-                  //     borderRadius: BorderRadius.circular(10),
-                  //   ),
-                  //   height: 60,
-                  //   width: 90,
-                  //   child: Center(
-                  //     child: Text(
-                  //       "Sales Tons",
-                  //       style: TextStyle(color: Colors.black),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.blue.withOpacity(0.1),
-                  //     borderRadius: BorderRadius.circular(10),
-                  //   ),
-                  //   height: 60,
-                  //   width: 90,
-                  //   child: Center(
-                  //     child: Text(
-                  //       "Ach Per",
-                  //       style: TextStyle(color: Colors.black),
-                  //     ),
-                  //   ),
-                  // ),
+                 
                 ],
               ),
               Card(
