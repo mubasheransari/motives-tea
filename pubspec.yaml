@@ -49,6 +49,7 @@ dependencies:
   percent_indicator: ^4.2.2
   persistent_shopping_cart: 
   shared_preferences: ^2.1.0
+  syncfusion_flutter_gauges:
   
 dev_dependencies:
   flutter_test:

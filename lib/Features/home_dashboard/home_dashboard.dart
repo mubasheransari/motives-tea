@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HomeDashboard extends StatefulWidget {
   @override
@@ -46,6 +47,18 @@ class _HomeDashboardState extends State<HomeDashboard> {
     {'icon': Icons.event_busy, 'label': "Leave\nRequest"},
   ];
 
+  Color getProgressColor(double percent) {
+    if (percent < 0.25) {
+      return Colors.red;
+    } else if (percent < 0.5) {
+      return Colors.orange;
+    } else if (percent < 0.75) {
+      return Colors.yellow;
+    } else {
+      return Colors.green;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,32 +93,107 @@ class _HomeDashboardState extends State<HomeDashboard> {
                       ),
                       Row(
                         children: [
-                          _statusDot(Colors.green, "Productive"),
-                          _statusDot(Colors.black, "Remaining"),
+                          _statusDot(Colors.yellow, "Productive"),
+                          _statusDot(Colors.red, "Remaining"),
                         ],
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
 
-                  /// Circular Indicator
-                  CircularPercentIndicator(
-                    radius: 50.0,
-                    lineWidth: 8.0,
-                    percent: (circularValue / 10).clamp(0.0, 1.0),
-                    center: Text(
-                      "Today's\nRoute", //"$circularValue",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: SfRadialGauge(
+                      axes: <RadialAxis>[
+                        RadialAxis(
+                          startAngle: 270,
+                          endAngle: 270,
+                          minimum: 0,
+                          maximum: 100,
+
+                          showTicks: false,
+                          showLabels: false,
+                          ranges: <GaugeRange>[
+                            GaugeRange(
+                              startValue: 0,
+                              endValue: 25,
+                              color: Colors.red,
+                              startWidth: 8,
+                              endWidth: 8,
+                            ),
+                            GaugeRange(
+                              startValue: 25,
+                              endValue: 50,
+                              color: Colors.orange,
+                              startWidth: 8,
+                              endWidth: 8,
+                            ),
+                            GaugeRange(
+                              startValue: 50,
+                              endValue: 75,
+                              color: Colors.yellow,
+                              startWidth: 8,
+                              endWidth: 8,
+                            ),
+                            GaugeRange(
+                              startValue: 75,
+                              endValue: 100,
+                              color: Colors.red,
+                              startWidth: 8,
+                              endWidth: 8,
+                            ),
+                          ],
+                          // 🔴 Remove this if you don't want any needle or pointer
+                          // pointers: <GaugePointer>[
+                          //   NeedlePointer(value: circularValue * 10),
+                          // ],
+                          annotations: <GaugeAnnotation>[
+                            GaugeAnnotation(
+                              widget: Text(
+                                "Today's\nRoute",
+                                textAlign: TextAlign.center,
+                              ),
+                              angle: 0, // 👈 Correct angle for centering
+                              positionFactor: 0, // 👈 Perfectly center the text
+                              // positionFactor: 0.5,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    progressColor: Colors.blue,
                   ),
+
+                  /*   CircularPercentIndicator(
+  radius: 50.0,
+  lineWidth: 8.0,
+  percent: (circularValue / 10).clamp(0.0, 1.0),
+  center: Text(
+    "Today's\nRoute",
+    style: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+    ),
+  ),
+  progressColor: getProgressColor((circularValue / 10).clamp(0.0, 1.0)),
+)*/
+
+                  // CircularPercentIndicator(
+                  //   radius: 50.0,
+                  //   lineWidth: 8.0,
+                  //   percent: (circularValue / 10).clamp(0.0, 1.0),
+                  //   center: Text(
+                  //     "Today's\nRoute",
+                  //     style: TextStyle(
+                  //       fontSize: 14,
+                  //       fontWeight: FontWeight.w500,
+                  //     ),
+                  //   ),
+                  //   progressColor: Colors.blue,
+                  // ),
                 ],
               ),
               SizedBox(height: 20),
 
-              /// Progress Bar
               Row(
                 children: [
                   Expanded(
@@ -124,7 +212,6 @@ class _HomeDashboardState extends State<HomeDashboard> {
               ),
               SizedBox(height: 12),
 
-              /// Day Selector
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(days.length, (index) {
@@ -170,9 +257,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
               ),
               SizedBox(height: 24),
 
-              /// Line Graph
               Container(
-                //  color: Colors.grey[100],
                 child: SizedBox(
                   height: 160,
                   child: LineChart(
@@ -211,39 +296,42 @@ class _HomeDashboardState extends State<HomeDashboard> {
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    height: 70,
+                    height: 60,
                     width: 90,
                     child: Center(
                       child: Text(
                         "Targets",
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    height: 70,
+                    height: 60,
                     width: 90,
                     child: Center(
                       child: Text(
                         "Sales Tons",
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    height: 70,
+                    height: 60,
                     width: 90,
                     child: Center(
                       child: Text(
                         "Ach Per",
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
@@ -273,18 +361,26 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         highlightColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         onTap: () {
-                            print("OPTIONs CLICKED ${features['label']}");
-                            if(features['label'] == "Time\nCard"){
-                              print("Mubashetr");
-                                print("Mubashetr");
-                                  print("Mubashetr");
-                            }
-                            else if(features['label'] == "Today's\nRoute"){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> RouteGoogleMap()));
-                            }
-                                else if(features['label'] == "Punch\nOrder"){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> PunchOrderView()));
-                            }
+                          print("OPTIONs CLICKED ${features['label']}");
+                          if (features['label'] == "Time\nCard") {
+                            print("Mubashetr");
+                            print("Mubashetr");
+                            print("Mubashetr");
+                          } else if (features['label'] == "Today's\nRoute") {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RouteGoogleMap(),
+                              ),
+                            );
+                          } else if (features['label'] == "Punch\nOrder") {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PunchOrderView(),
+                              ),
+                            );
+                          }
                         },
                         child: Column(
                           //  mainAxisSize: MainAxisSize.min,
