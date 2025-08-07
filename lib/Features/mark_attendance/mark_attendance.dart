@@ -94,48 +94,21 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
     }
   }
 
-  // void _addRandomShopMarkers() {
-  //   final List<LatLng> randomShops = [
-  //     const LatLng(24.8615, 67.0099),
-  //     const LatLng(24.8581, 67.0136),
-  //     const LatLng(24.8672, 67.0211),
-  //     const LatLng(24.8569, 67.0012),
-  //     const LatLng(24.8703, 67.0455),
-  //   ];
+  // void _showTappedMarkerDistance(LatLng target, String name) {
+  //   if (_currentLatLng == null) return;
 
-  //   for (int i = 0; i < randomShops.length; i++) {
-  //     final shopId = 'shop_$i';
-  //     final shopLatLng = randomShops[i];
+  //   double distanceInMeters = Geolocator.distanceBetween(
+  //     _currentLatLng!.latitude,
+  //     _currentLatLng!.longitude,
+  //     target.latitude,
+  //     target.longitude,
+  //   );
 
-  //     _markers.add(
-  //       Marker(
-  //         markerId: MarkerId(shopId),
-  //         position: shopLatLng,
-  //         icon: _shopMarkerIcon ?? BitmapDescriptor.defaultMarker,
-  //         infoWindow: InfoWindow(title: 'Location ${i + 1}'),
-  //         onTap: () {
-  //           _showTappedMarkerDistance(shopLatLng, 'Location ${i + 1}');
-  //         },
-  //       ),
-  //     );
-  //   }
-  // 
-
-  void _showTappedMarkerDistance(LatLng target, String name) {
-    if (_currentLatLng == null) return;
-
-    double distanceInMeters = Geolocator.distanceBetween(
-      _currentLatLng!.latitude,
-      _currentLatLng!.longitude,
-      target.latitude,
-      target.longitude,
-    );
-
-    setState(() {
-      distanceInfo =
-          'Distance: ${(distanceInMeters / 1000).toStringAsFixed(2)} km (to $name)';
-    });
-  }
+  //   setState(() {
+  //     distanceInfo =
+  //         'Distance: ${(distanceInMeters / 1000).toStringAsFixed(2)} km (to $name)';
+  //   });
+  // }
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
@@ -148,9 +121,9 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     DateTime now = DateTime.now();
 
-    String formattedTime = DateFormat('hh:mm a').format(now); // e.g., 03:45 PM
-    String formattedDate =
-        DateFormat('yyyy-MM-dd').format(now); // e.g., 2025-08-03
+    String formattedDate = DateFormat('MMM dd, yyyy').format(now);
+    String formattedTime =
+        DateFormat('yyyy-MM-dd').format(now); 
     final storage = GetStorage();
     storage.write("checkin_time", formattedTime);
     storage.write("checkin_date", formattedDate);

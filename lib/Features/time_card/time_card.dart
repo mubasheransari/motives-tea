@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
   void showTimeCardPopup(BuildContext context) {
@@ -9,6 +10,10 @@ import 'package:intl/intl.dart';
     final String checkInTime = DateFormat('hh:mm a').format(checkInDateTime);
     final String checkOutDate = DateFormat('MMM dd, yyyy').format(checkOutDateTime);
     final String checkOutTime = DateFormat('hh:mm a').format(checkOutDateTime);
+
+        final storage = GetStorage();
+  var time =  storage.read("checkin_time");
+   var date= storage.read("checkin_date");
 
     showDialog(
       context: context,
@@ -51,14 +56,14 @@ import 'package:intl/intl.dart';
                   children: [
                     const SizedBox(width: 32),
                     Text('Date: ', style: TextStyle(fontWeight: FontWeight.w500)),
-                    Text(checkInDate),
+                    Text(date),
                   ],
                 ),
                 Row(
                   children: [
                     const SizedBox(width: 32),
                     Text('Time: ', style: TextStyle(fontWeight: FontWeight.w500)),
-                    Text(checkInTime),
+                    Text(time),
                   ],
                 ),
 
