@@ -38,6 +38,18 @@ class _PunchOrderViewState extends State<PunchOrderView> {
       imageUrl: 'assets/product4.jfif',
       price: 39.99,
     ),
+    Product(
+      title: 'Hardum Mixture',
+      sku: 'SKU004',
+      imageUrl: 'assets/product5.jfif',
+      price: 39.99,
+    ),
+    Product(
+      title: 'Hardum Mixture',
+      sku: 'SKU004',
+      imageUrl: 'assets/product6.jfif',
+      price: 39.99,
+    ),
   ];
 
   @override
@@ -93,40 +105,81 @@ class _PunchOrderViewState extends State<PunchOrderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: const Text('Punch Order'),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   automaticallyImplyLeading: false,
+      //   title: const Text('Punch Order'),
 
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart_checkout),
-            onPressed: _showCartDialog,
-          ),
-        ],
-      ),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.shopping_cart_checkout),
+      //       onPressed: _showCartDialog,
+      //     ),
+      //   ],
+      // ),
       backgroundColor: Colors.white,
-      body: GridView.builder(
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(16),
-        itemCount: _products.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.54,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-        ),
-        itemBuilder: (_, index) {
-          final product = _products[index];
-          return SizedBox(
-            height: 170,
-            child: ProductCard(
-              product: product,
-              cart: _cart,
-              onUpdate: () => setState(() {}),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFE6DCFD), Color(0xFFD8E7FF)],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
-          );
-        },
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 50),
+                Center(
+                  child: Text(
+                    "Punch Order".toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFE6DCFD), Color(0xFFD8E7FF)],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                  ),
+                  child: GridView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(16),
+                    itemCount: _products.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.54,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                        ),
+                    itemBuilder: (_, index) {
+                      final product = _products[index];
+                      return SizedBox(
+                        height: 170,
+                        child: ProductCard(
+                          product: product,
+                          cart: _cart,
+                          onUpdate: () => setState(() {}),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -159,6 +212,7 @@ class ProductCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 2.0),
               child: Image.asset(
+                fit: BoxFit.cover,
                 product.imageUrl,
                 height: 165,
                 width: 100,
@@ -178,13 +232,39 @@ class ProductCard extends StatelessWidget {
                   'SKU: ${product.sku}',
                   style: const TextStyle(color: Colors.grey, fontSize: 12),
                 ),
-                      Text(
+                Text(
                   'Price: ${product.price}',
                   style: const TextStyle(color: Colors.blue, fontSize: 12),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 9),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: const CircleAvatar(
+                        radius: 11,
+                        backgroundColor: Colors.blue,
+                        child: Icon(Icons.add, color: Colors.white, size: 20),
+                      ),
+                    ),
+                    Text("0"),
+                    InkWell(
+                      onTap: () {},
+                      child: const CircleAvatar(
+                        radius: 11,
+                        backgroundColor: Colors.blue,
+                        child: Icon(
+                          Icons.remove,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
 
-              /*  Row(
+                /*  Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
