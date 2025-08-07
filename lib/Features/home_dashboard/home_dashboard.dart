@@ -1,5 +1,6 @@
 import 'package:attendence_app/Features/punch_order/punch_order.dart';
 import 'package:attendence_app/Features/routes/route_view.dart';
+import 'package:attendence_app/Features/time_card/time_card.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -395,9 +396,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         onTap: () {
                           print("OPTIONs CLICKED ${features['label']}");
                           if (features['label'] == "Time\nCard") {
-                            print("Mubashetr");
-                            print("Mubashetr");
-                            print("Mubashetr");
+                           showTimeCardPopup(context);
                           } else if (features['label'] == "Today's\nRoute") {
                             Navigator.push(
                               context,
