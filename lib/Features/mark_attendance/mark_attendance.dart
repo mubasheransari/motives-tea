@@ -123,7 +123,7 @@ class _MarkAttendanceViewState extends State<MarkAttendanceView> {
 
     String formattedDate = DateFormat('MMM dd, yyyy').format(now);
     String formattedTime =
-        DateFormat('yyyy-MM-dd').format(now); 
+      DateFormat('hh:mm a').format(now); 
     final storage = GetStorage();
     storage.write("checkin_time", formattedTime);
     storage.write("checkin_date", formattedDate);

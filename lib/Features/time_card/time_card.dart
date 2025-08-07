@@ -29,7 +29,6 @@ import 'package:intl/intl.dart';
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Heading
                 Text(
                   '🕒 Time Card',
                   style: TextStyle(
@@ -40,7 +39,6 @@ import 'package:intl/intl.dart';
                 ),
                 const SizedBox(height: 20),
 
-                // Check-In Section
                 Row(
                   children: [
                     Icon(Icons.check_circle, color: Colors.green),
@@ -69,7 +67,6 @@ import 'package:intl/intl.dart';
 
                 const SizedBox(height: 20),
 
-                // Check-Out Section
                 Row(
                   children: [
                     Icon(Icons.logout, color: Colors.redAccent),
@@ -98,7 +95,6 @@ import 'package:intl/intl.dart';
 
                 const SizedBox(height: 25),
 
-                // Close Button
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   child: Text('Close',style: TextStyle(color: Colors.white),),
@@ -117,3 +113,4 @@ import 'package:intl/intl.dart';
       },
     );
   }
+//i just want a checkin time that i get from get storage i dont have any problem with this i just want to modify according to that condition that i initially want checkin time only and End Route Button and when i click End Route it shows checkout time also and close button shows
