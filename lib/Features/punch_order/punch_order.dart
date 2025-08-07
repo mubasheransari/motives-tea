@@ -178,9 +178,13 @@ class ProductCard extends StatelessWidget {
                   'SKU: ${product.sku}',
                   style: const TextStyle(color: Colors.grey, fontSize: 12),
                 ),
+                      Text(
+                  'Price: ${product.price}',
+                  style: const TextStyle(color: Colors.blue, fontSize: 12),
+                ),
                 const SizedBox(height: 4),
 
-                Row(
+              /*  Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
@@ -211,7 +215,7 @@ class ProductCard extends StatelessWidget {
 
                     const SizedBox(height: 4),
                   ],
-                ),
+                ),*/
               ],
             ),
           ),
