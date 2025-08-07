@@ -119,22 +119,13 @@ class _PunchOrderViewState extends State<PunchOrderView> {
       // ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFE6DCFD), Color(0xFFD8E7FF)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-          ),
-          child: SingleChildScrollView(
+            
             child: Column(
               children: [
                 SizedBox(height: 50),
                 Center(
                   child: Text(
-                    "Punch Order".toUpperCase(),
+                    "Products",
                     style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -142,45 +133,33 @@ class _PunchOrderViewState extends State<PunchOrderView> {
                     ),
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFFE6DCFD), Color(0xFFD8E7FF)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                  ),
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(16),
-                    itemCount: _products.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.54,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                        ),
-                    itemBuilder: (_, index) {
-                      final product = _products[index];
-                      return SizedBox(
-                        height: 170,
-                        child: ProductCard(
-                          product: product,
-                          cart: _cart,
-                          onUpdate: () => setState(() {}),
-                        ),
-                      );
-                    },
-                  ),
+                GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(16),
+                  itemCount: _products.length,
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.54,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                  itemBuilder: (_, index) {
+                    final product = _products[index];
+                    return SizedBox(
+                      height: 170,
+                      child: ProductCard(
+                        product: product,
+                        cart: _cart,
+                        onUpdate: () => setState(() {}),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
           ),
-        ),
-      ),
     );
   }
 }
