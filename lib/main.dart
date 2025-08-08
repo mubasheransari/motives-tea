@@ -1,11 +1,11 @@
-import 'package:attendence_app/Features/home_dashboard/home_dashboard.dart';
 import 'package:attendence_app/Features/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'Features/Routes/route_view.dart';
+import 'package:persistent_shopping_cart/persistent_shopping_cart.dart';
 
 void main() async{
    await GetStorage.init();
+   await PersistentShoppingCart().init();
   runApp(const MyApp());
 
 }
