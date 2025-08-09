@@ -1,3 +1,4 @@
+import 'package:attendence_app/Features/add_shops/add_shops.dart';
 import 'package:attendence_app/Features/leave_request/leave_request_view.dart';
 import 'package:attendence_app/Features/punch_order/punch_order.dart';
 import 'package:attendence_app/Features/routes/route_view.dart';
@@ -42,7 +43,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
   final List<Map<String, dynamic>> menuFeatures1 = [
     {'icon': Icons.cloud_upload, 'label': 'Sync\nIn'},
     {'icon': Icons.reviews, 'label': "Shop\nOwner\nReview"},
-    {'icon': Icons.event_busy, 'label': "Leave\nRequest"},
+    {'icon': Icons.add, 'label': "Add\nShops"},
     {'icon': Icons.event_busy, 'label': "Leave\nRequest"},
   ];
 
@@ -174,34 +175,6 @@ class _HomeDashboardState extends State<HomeDashboard> {
                       ],
                     ),
                   ),
-
-                  /*   CircularPercentIndicator(
-  radius: 50.0,
-  lineWidth: 8.0,
-  percent: (circularValue / 10).clamp(0.0, 1.0),
-  center: Text(
-    "Today's\nRoute",
-    style: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-    ),
-  ),
-  progressColor: getProgressColor((circularValue / 10).clamp(0.0, 1.0)),
-)*/
-
-                  // CircularPercentIndicator(
-                  //   radius: 50.0,
-                  //   lineWidth: 8.0,
-                  //   percent: (circularValue / 10).clamp(0.0, 1.0),
-                  //   center: Text(
-                  //     "Today's\nRoute",
-                  //     style: TextStyle(
-                  //       fontSize: 14,
-                  //       fontWeight: FontWeight.w500,
-                  //     ),
-                  //   ),
-                  //   progressColor: Colors.blue,
-                  // ),
                 ],
               ),
               SizedBox(height: 20),
@@ -457,6 +430,9 @@ class _HomeDashboardState extends State<HomeDashboard> {
                         onTap:(){
                        if(features['label'] == "Leave\nRequest"){
                        Navigator.push(context, MaterialPageRoute(builder: (context)=> LeaveApplicationFormScreen()));
+                       }
+                      else   if(features['label'] == "Add\nShops"){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AddShopsView()));
                        }
                         },
                         child: Column(

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class LeaveApplicationFormScreen extends StatefulWidget {
-  const LeaveApplicationFormScreen({super.key});
+class AddShopsView extends StatefulWidget {
+  const AddShopsView({super.key});
 
   @override
-  State<LeaveApplicationFormScreen> createState() =>
-      _LeaveApplicationFormScreenState();
+  State<AddShopsView> createState() =>
+      _AddShopsViewState();
 }
 
-class _LeaveApplicationFormScreenState
-    extends State<LeaveApplicationFormScreen> {
+class _AddShopsViewState
+    extends State<AddShopsView> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -98,7 +98,7 @@ class _LeaveApplicationFormScreenState
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          "Leave Request".toUpperCase(),
+          "Add Shop".toUpperCase(),
           style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
@@ -115,94 +115,32 @@ class _LeaveApplicationFormScreenState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Full Name",
+                "Shop Name",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               SizedBox(height: 5),
 
-              _buildTextField(_nameController, 'Full Name'),
+              _buildTextField(_nameController, 'Owner Name'),
               const Text(
-                "Email",
+                "Owner Name",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               SizedBox(height: 5),
-              _buildTextField(_emailController, 'Email'),
+              _buildTextField(_emailController, 'Owner Name'),
               const Text(
-                "Department",
+                "Contract Number",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
-              SizedBox(height: 5),
-              _buildTextField(_departmentController, 'Department'),
-
-              if (_leaveType != 'Sick Leave')
-                const Text(
-                  "Select Date",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              if (_leaveType != 'Sick Leave') SizedBox(height: 5),
-
-              if (_leaveType != 'Sick Leave') _buildDateField(context, true),
-              if (_leaveType != 'Sick Leave') _buildDateField(context, false),
-              const Text(
-                "Reason for Leave",
+               SizedBox(height: 5),
+               _buildTextField(_emailController, 'Contact Number'),
+               SizedBox(height: 5),
+                     const Text(
+                "Location",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
-              SizedBox(height: 5),
-              _buildTextField(_reasonController, 'Reason for Leave'),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Leave Type",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: ['Sick Leave', 'Casual Leave', 'Annual Leave']
-                          .map(
-                            (type) => Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-
-                              children: [
-                                Radio<String>(
-                                  value: type,
-                                  groupValue: _leaveType,
-                                  onChanged: (val) {
-                                    setState(() => _leaveType = val);
-                                  },
-                                ),
-                                Text(
-                                  type,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                              ],
-                            ),
-                          )
-                          .toList(),
-                    ),
-                    if (_leaveType == null)
-                      const Padding(
-                        padding: EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          'Please select a leave type',
-                          style: TextStyle(color: Colors.red, fontSize: 12),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
+               SizedBox(height: 5),
+              _buildTextField(_emailController, 'Location'),
+            
               const SizedBox(height: 10),
               Center(
                 child: GestureDetector(
@@ -216,7 +154,7 @@ class _LeaveApplicationFormScreenState
                     ),
                     child: const Center(
                       child: Text(
-                        'Submit',
+                        'Add Shop',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
