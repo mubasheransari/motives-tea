@@ -116,6 +116,49 @@ class _LeaveApplicationFormScreenState
               if (_leaveType != 'Sick Leave') _buildDateField(context, false),
             ///  const SizedBox(height: 10),
                 _buildTextField(_reasonController, 'Reason for Leave'),
+                Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text(
+        "Leave Type",
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+      ),
+      const SizedBox(height: 8),
+        Column(
+        children: ['Sick Leave', 'Casual Leave', 'Annual Leave']
+            .map((type) => Row(
+              mainAxisAlignment:MainAxisAlignment.start,
+           //   crossAxisAlignment: CrossAxisAlignment.start,
+                //  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Radio<String>(
+                      value: type,
+                      groupValue: _leaveType,
+                      onChanged: (val) {
+                        setState(() => _leaveType = val);
+                      },
+                    ),
+                    Text(type, style: const TextStyle(fontSize: 11)),
+                    const SizedBox(width: 8),
+                  ],
+                ))
+            .toList(),
+      ),
+      if (_leaveType == null)
+        const Padding(
+          padding: EdgeInsets.only(top: 4.0),
+          child: Text(
+            'Please select a leave type',
+            style: TextStyle(color: Colors.red, fontSize: 12),
+          ),
+        ),
+    ],
+  ),
+),
+
+                       /*
                          Padding(
                            padding: const EdgeInsets.only(left:4.0,right: 4),
                            child: DropdownButtonFormField<String>(
@@ -130,6 +173,7 @@ class _LeaveApplicationFormScreenState
                                                val == null ? 'Please select a leave type' : null,
                                          ),
                          ),
+                         */
               // TextFormField(
               //   controller: _reasonController,
               //   maxLines: 4,
