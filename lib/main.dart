@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Motives-T',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       home: SplashScreen()       
       // time != null ? HomeDashboard() //RouteGoogleMap()

@@ -91,9 +91,16 @@ class _LeaveApplicationFormScreenState
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffoldWidget(
-      appbartitle: 'Leave Request',
-      isDrawerRequired: true,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text("Leave Request".toUpperCase(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w700),),
+      centerTitle: true,
+      ),
+      
+      // appbartitle: 'Leave Request',
+      // isDrawerRequired: true,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -103,44 +110,49 @@ class _LeaveApplicationFormScreenState
               _buildTextField(_nameController, 'Full Name'),
               _buildTextField(_emailController, 'Email'),
               _buildTextField(_departmentController, 'Department'),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(labelText: "Leave Type"),
-                value: _leaveType,
-                items: ['Sick Leave', 'Casual Leave', 'Annual Leave']
-                    .map((type) =>
-                        DropdownMenuItem(value: type, child: Text(type)))
-                    .toList(),
-                onChanged: (val) => setState(() => _leaveType = val),
-                validator: (val) =>
-                    val == null ? 'Please select a leave type' : null,
-              ),
-              const SizedBox(height: 20),
+     
+            //  const SizedBox(height: 20),
               if (_leaveType != 'Sick Leave') _buildDateField(context, true),
               if (_leaveType != 'Sick Leave') _buildDateField(context, false),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _reasonController,
-                maxLines: 4,
-                decoration: const InputDecoration(
-                  labelText: 'Reason for Leave',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) =>
-                    value!.isEmpty ? 'Please enter a reason' : null,
-              ),
+            ///  const SizedBox(height: 10),
+                _buildTextField(_reasonController, 'Reason for Leave'),
+                         Padding(
+                           padding: const EdgeInsets.only(left:4.0,right: 4),
+                           child: DropdownButtonFormField<String>(
+                                           decoration: const InputDecoration(labelText: "Leave Type",hintStyle: TextStyle(fontSize: 12)),
+                                           value: _leaveType,
+                                           items: ['Sick Leave', 'Casual Leave', 'Annual Leave']
+                                               .map((type) =>
+                                                   DropdownMenuItem(value: type, child: Text(type)))
+                                               .toList(),
+                                           onChanged: (val) => setState(() => _leaveType = val),
+                                           validator: (val) =>
+                                               val == null ? 'Please select a leave type' : null,
+                                         ),
+                         ),
+              // TextFormField(
+              //   controller: _reasonController,
+              //   maxLines: 4,
+              //   decoration: const InputDecoration(
+              //     labelText: 'Reason for Leave',
+              //     border: OutlineInputBorder(),
+              //   ),
+              //   validator: (value) =>
+              //       value!.isEmpty ? 'Please enter a reason' : null,
+              // ),
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: _submitForm,
                 child: Container(
-                  height: 50,
-                  width: 230,
+                  height: 40,
+                  width: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: primaryBlue,
+                    color: Colors.blue,
                   ),
                   child: const Center(
                     child: Text(
-                      'Submit Leave Application',
+                      'Submit',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
@@ -159,7 +171,7 @@ class _LeaveApplicationFormScreenState
       padding: const EdgeInsets.only(bottom: 12),
       child: TextFormField(
         controller: controller,
-        decoration: InputDecoration(hintText: label),
+        decoration: InputDecoration(hintText: label,border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),hintStyle: TextStyle(fontSize: 14)),
         validator: (value) => value!.isEmpty ? 'This field is required' : null,
       ),
     );
@@ -183,8 +195,17 @@ class _LeaveApplicationFormScreenState
         },
         child: InputDecorator(
           decoration: InputDecoration(
-            labelText: label,
+          //  labelText: label,
             border: const OutlineInputBorder(),
+        //  focusColor: Colors.blue,
+              enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey, width: 1), // Normal border
+      borderRadius: BorderRadius.circular(8),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue, width: 1), // Focus border
+      borderRadius: BorderRadius.circular(8),
+    ),
           ),
           child: Text(
             date == null

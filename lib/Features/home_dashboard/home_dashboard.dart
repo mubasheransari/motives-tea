@@ -1,3 +1,4 @@
+import 'package:attendence_app/Features/leave_request/leave_request_view.dart';
 import 'package:attendence_app/Features/punch_order/punch_order.dart';
 import 'package:attendence_app/Features/routes/route_view.dart';
 import 'package:attendence_app/Features/time_card/time_card.dart';
@@ -388,13 +389,11 @@ class _HomeDashboardState extends State<HomeDashboard> {
                     ),
                     itemBuilder: (context, index) {
                       final features = menuFeatures[index];
-                      print("OPTIONs CLICKED ${features['label']}");
                       return InkWell(
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         onTap: () {
-                          print("OPTIONs CLICKED ${features['label']}");
                           if (features['label'] == "Time\nCard") {
                            showTimeCardPopup(context);
                           } else if (features['label'] == "Today's\nRoute") {
@@ -454,22 +453,29 @@ class _HomeDashboardState extends State<HomeDashboard> {
                     itemBuilder: (context, index) {
                       final features = menuFeatures1[index];
                       print("OPTION CLICKED $features");
-                      return Column(
-                        //  mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.blue.withOpacity(0.1),
-                            child: Icon(features['icon'], color: Colors.blue),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            features['label'],
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        ],
+                      return InkWell(
+                        onTap:(){
+                       if(features['label'] == "Leave\nRequest"){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> LeaveApplicationFormScreen()));
+                       }
+                        },
+                        child: Column(
+                          //  mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.blue.withOpacity(0.1),
+                              child: Icon(features['icon'], color: Colors.blue),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              features['label'],
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ],
+                        ),
                       );
                     },
                   ),
