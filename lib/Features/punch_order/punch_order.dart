@@ -120,7 +120,7 @@ class _PunchOrderViewState extends State<PunchOrderView> {
         child: Column(
           children: [
             const SizedBox(height: 12),
-            const Center(child: Text("Products", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400))),
+         //   const Center(child: Text("Products", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400))),
             GridView.builder(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,

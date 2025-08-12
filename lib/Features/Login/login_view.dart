@@ -49,29 +49,29 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 16),
 
           
-              Row(
-                children: [
-                  Checkbox(
-                    value: rememberMe,
-                    activeColor: Colors.deepPurple,
-                    onChanged: (value) {
-                      setState(() => rememberMe = value!);
-                    },
-                  ),
-                   Text("Remember me"),
-                ],
-              ),
-              const SizedBox(height: 16),
+              // Row(
+              //   children: [
+              //     Checkbox(
+              //       value: rememberMe,
+              //       activeColor: Colors.deepPurple,
+              //       onChanged: (value) {
+              //         setState(() => rememberMe = value!);
+              //       },
+              //     ),
+              //      Text("Remember me"),
+              //   ],
+              // ),
+              // const SizedBox(height: 16),
 
 
               Center(
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width *0.38,
+                  width: MediaQuery.of(context).size.width *0.33,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 11),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       backgroundColor: Colors.blue,
                     ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 bool rememberMe = false;
 bool isPasswordVisible = false;
 
+
 class LeaveApplicationFormScreen extends StatefulWidget {
   const LeaveApplicationFormScreen({super.key});
 
@@ -63,7 +64,6 @@ class _LeaveApplicationFormScreenState
       backgroundColor: Colors.grey[200],
       body: Container(
         width: double.infinity,
-
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
           child: Column(
