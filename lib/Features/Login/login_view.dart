@@ -104,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget _buildTextField(String hint, bool isPassword) {
+    Widget _buildTextField(String hint, bool isPassword) {
     return TextField(
       obscureText: isPassword && !isPasswordVisible,
       decoration: InputDecoration(
@@ -133,6 +133,36 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
+ /* Widget _buildTextField(String hint, bool isPassword) {
+    return TextField(
+      obscureText: isPassword && !isPasswordVisible,
+      decoration: InputDecoration(
+        hintText: hint,
+        suffixIcon: isPassword
+            ? IconButton(
+                icon: Icon(
+                  isPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  setState(() => isPasswordVisible = !isPasswordVisible);
+                },
+              )
+            : null,
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }*/
 }
 
 
