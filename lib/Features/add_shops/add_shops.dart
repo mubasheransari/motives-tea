@@ -181,7 +181,7 @@ class _AddShopsViewState
         validator: (value) => value!.isEmpty ? 'This field is required' : null,
       ),
     );
-  }
+  }//want exact same design like this that i have in attached image in flutter
 
   Widget _buildDateField(BuildContext context, bool isStart) {
     final date = isStart ? _startDate : _endDate;

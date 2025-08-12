@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-              builder: (context) => MarkAttendanceView()
+              builder: (context) => SignupScreen()
               // HomeScreen( 
               //       connectivity: isConnected,
               //     )
@@ -86,9 +86,11 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                    connectivity: true,
-                  )),
+              builder: (context) =>SignupScreen()
+              //  HomeScreen(
+              //       connectivity: true,
+              //     )
+                  ),
         );
       }
     });
