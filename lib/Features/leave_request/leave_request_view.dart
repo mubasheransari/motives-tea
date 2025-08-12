@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+bool rememberMe = false;
+bool isPasswordVisible = false;
+
 class LeaveApplicationFormScreen extends StatefulWidget {
   const LeaveApplicationFormScreen({super.key});
 
@@ -11,12 +14,8 @@ class LeaveApplicationFormScreen extends StatefulWidget {
 class _LeaveApplicationFormScreenState
     extends State<LeaveApplicationFormScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _departmentController = TextEditingController();
-  final _reasonController = TextEditingController();
-  String? _leaveType = 'Sick Leave'; // default selected
-  //String? _leaveType;
+
+  String? _leaveType = 'Sick Leave';
   DateTime? _startDate;
   DateTime? _endDate;
 
@@ -58,81 +57,32 @@ class _LeaveApplicationFormScreenState
     }
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      if (_leaveType != 'Sick Leave') {
-        if (_startDate == null || _endDate == null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Please select both start and end dates'),
-            ),
-          );
-          return;
-        } else if (_endDate!.isBefore(_startDate!)) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('End date cannot be before start date'),
-            ),
-          );
-          return;
-        } else if (_endDate!.isAtSameMomentAs(_startDate!)) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Start and End date cannot be the same'),
-            ),
-          );
-          return;
-        }
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Leave Application Submitted')),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          "Leave Request".toUpperCase(),
-          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-        ),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.grey[200],
+      body: Container(
+        width: double.infinity,
 
-      // appbartitle: 'Leave Request',
-      // isDrawerRequired: true,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               const Text(
-                "Full Name",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                "Leave Request",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 30),
 
-              _buildTextField(_nameController, 'Full Name'),
-              const Text(
-                "Email",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-              SizedBox(height: 5),
-              _buildTextField(_emailController, 'Email'),
-              const Text(
-                "Department",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-              SizedBox(height: 5),
-              _buildTextField(_departmentController, 'Department'),
+              _buildTextField("Reason of Leave", false, 3),
+
+              const SizedBox(height: 16),
 
               if (_leaveType != 'Sick Leave')
                 const Text(
@@ -143,12 +93,7 @@ class _LeaveApplicationFormScreenState
 
               if (_leaveType != 'Sick Leave') _buildDateField(context, true),
               if (_leaveType != 'Sick Leave') _buildDateField(context, false),
-              const Text(
-                "Reason for Leave",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-              SizedBox(height: 5),
-              _buildTextField(_reasonController, 'Reason for Leave'),
+              SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: Column(
@@ -203,26 +148,28 @@ class _LeaveApplicationFormScreenState
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
+
               Center(
-                child: GestureDetector(
-                  onTap: _submitForm,
-                  child: Container(
-                    height: 40,
-                    width: 110,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.blue,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.36,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
+                      backgroundColor: Colors.blue,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "Sumbit".toUpperCase(),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -230,17 +177,33 @@ class _LeaveApplicationFormScreenState
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          hintText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-          hintStyle: TextStyle(fontSize: 14),
+  Widget _buildTextField(String hint, bool isPassword, int maxlines) {
+    return TextField(
+      maxLines: maxlines,
+      obscureText: isPassword && !isPasswordVisible,
+      decoration: InputDecoration(
+        hintText: hint,
+        suffixIcon: isPassword
+            ? IconButton(
+                icon: Icon(
+                  isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  setState(() => isPasswordVisible = !isPasswordVisible);
+                },
+              )
+            : null,
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
         ),
-        validator: (value) => value!.isEmpty ? 'This field is required' : null,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
       ),
     );
   }
@@ -262,15 +225,12 @@ class _LeaveApplicationFormScreenState
         },
         child: InputDecorator(
           decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 1),
-              borderRadius: BorderRadius.circular(8),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue, width: 1),
-              borderRadius: BorderRadius.circular(8),
-            ),
+            filled: true,
+            fillColor: Colors.white,
           ),
           child: Text(
             date == null
