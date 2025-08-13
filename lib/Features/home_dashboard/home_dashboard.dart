@@ -1,10 +1,13 @@
 import 'package:attendence_app/Features/add_shops/add_shops.dart';
 import 'package:attendence_app/Features/leave_request/leave_request_view.dart';
+import 'package:attendence_app/Features/navbar/custom_navbar.dart';
+import 'package:attendence_app/Features/navbar/drawer_menu_button.dart';
 import 'package:attendence_app/Features/punch_order/punch_order.dart';
 import 'package:attendence_app/Features/routes/route_view.dart';
 import 'package:attendence_app/Features/time_card/time_card.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -61,14 +64,36 @@ class _HomeDashboardState extends State<HomeDashboard> {
 
   @override
   Widget build(BuildContext context) {
+        final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+      final storage = GetStorage();
+  var time =  storage.read("checkin_time");
+   var date= storage.read("checkin_date");
     return Scaffold(
+       key: scaffoldKey,
+          drawer: CustomNavDrawer(),
+          // appBar: AppBar(
+
+          //   leading: DrawerMenuButton(scaffoldKey: scaffoldKey),
+          // ),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 30),
+              SizedBox(
+                height: 20,
+                //width: ,
+                child: Row(
+                  children: [
+                    DrawerMenuButton(scaffoldKey: scaffoldKey),
+                    Text('Check-In at $time on $date'.toUpperCase(),style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: Colors.blue),)
+                  ],
+                )),
+                SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -51,6 +51,9 @@ dependencies:
   shared_preferences: ^2.1.0
   syncfusion_flutter_gauges:
   image: ^4.0.17
+  carousel_slider: ^5.1.1
+  flutter_local_authentication: ^1.2.0
+  flutter_bloc:
   
 dev_dependencies:
   flutter_test:
