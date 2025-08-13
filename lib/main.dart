@@ -30,6 +30,7 @@ final lightTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.blue,
     elevation: 0,
+    
   ),
 );
 

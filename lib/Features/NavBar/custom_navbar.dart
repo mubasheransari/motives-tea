@@ -51,7 +51,7 @@ class CustomNavDrawer extends StatelessWidget {
                         child: Text(
                           "CHECK-IN at $time on $date.",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                             color: Color(0xff323747),
                             fontWeight: FontWeight.w300,
                             fontFamily: 'Satoshi',
