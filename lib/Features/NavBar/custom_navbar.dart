@@ -1,5 +1,9 @@
 import 'package:attendence_app/Features/home/home_view.dart';
+import 'package:attendence_app/Features/theme_change/bloc/theme_change_bloc.dart';
+import 'package:attendence_app/Features/theme_change/bloc/theme_change_event.dart';
+import 'package:attendence_app/Features/theme_change/bloc/theme_change_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import '../leave_request/leave_request_view.dart';
 
@@ -109,6 +113,28 @@ class CustomNavDrawer extends StatelessWidget {
                                 //   logoutDialog(context);
                               },
                             ),
+                                BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Theme Change',style: TextStyle(
+            fontSize: 17,
+            color: Color(0xff323747),
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Satoshi',
+          ),),
+                  Switch(
+                    value: state.themeMode == ThemeMode.dark,
+                    onChanged: (_) {
+                      context.read<ThemeBloc>().add(ToggleThemeEvent());
+                    },
+                  ),
+                ],
+              );
+            },
+          )
                           ],
                         ),
                       ),

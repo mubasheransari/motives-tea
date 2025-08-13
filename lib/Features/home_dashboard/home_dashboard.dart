@@ -366,7 +366,6 @@ class _HomeDashboardState extends State<HomeDashboard> {
                       ],
                     ),
                   ),
-                 
                 ],
               ),
               Card(
@@ -408,6 +407,15 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                 builder: (context) => PunchOrderView(),
                               ),
                             );
+                          }
+                          else if (features['label'] == "Sync\nIn") {
+        
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => PunchOrderView(),
+                            //   ),
+                            // );
                           }
                         },
                         child: Column(
